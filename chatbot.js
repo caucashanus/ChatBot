@@ -64,13 +64,15 @@ document.addEventListener("DOMContentLoaded", function () {
     } else if (target.id === "btn-cenik") {
       window.location.href = 'https://realbarber.cz/cenik/';
     } else if (target.id === "btn-uces") {
-      renderUces();
+      renderUcesOptions();
     } else if (target.dataset.faceShape) {
       showHairAdvice(target.dataset.faceShape);
     } else if (target.id === "back-to-start") {
       resetChat();
     } else if (target.id === "faq-button") {
       showFAQ();
+    } else if (target.id === "show-face-shapes") {
+      renderFaceShapes();
     }
   });
 
@@ -84,7 +86,16 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
   }
 
-  function renderUces() {
+  function renderUcesOptions() {
+    content.innerHTML = `
+      <p>Jak ti mám poradit účes?</p>
+      <button class="chatbot-button" onclick="window.location.href='https://realbarber.cz/inspirace/'">📸 Chci si prohlédnout katalog všech účesů</button>
+      <button class="chatbot-button" id="show-face-shapes">🧠 Vybrat mi účes dle mého tvaru obličeje</button>
+      <button class="chatbot-button" id="back-to-start">↩️ Zpět</button>
+    `;
+  }
+
+  function renderFaceShapes() {
     content.innerHTML = `
       <p>Vyber si tvar svého obličeje:</p>
       <div class="face-selection">
