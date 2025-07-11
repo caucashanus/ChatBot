@@ -103,3 +103,19 @@
   margin-bottom: 6px;
 }
 
+#chatbot-maskot {
+  position: fixed;
+  bottom: 100px;
+  right: -200px;
+  width: 150px;
+  z-index: 9999;
+  animation: slideIn 1s ease-out forwards;
+}
+
+@keyframes slideIn {
+  to {
+    right: 20px;
+  }
+}
+
+
