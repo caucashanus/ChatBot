@@ -29,8 +29,8 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("btn-rezervace").onclick = function () {
   content.innerHTML = `
     <p>S čím ti můžeme pomoci?</p>
-    <button class="chatbot-button" onclick="window.location.href='https://realbarber.cz/rezervace/#strih'">🧔 Objednat se na střih vlasů</button>
-    <button class="chatbot-button" onclick="window.location.href='https://realbarber.cz/rezervace/#vousy'">🧔‍♂️ Objednat se na úpravu vousů</button>
+    <button class="chatbot-button" onclick="window.location.href='tel:+420608332881'">📞 Zavolat a objednat se</button>
+    <button class="chatbot-button" onclick="window.location.href='https://realbarber.cz/rezervace/'">🌐 Objednat se online</button>
     <button class="chatbot-button" onclick="window.location.href='https://realbarber.cz/kontakt/'">💬 Potřebuju poradit</button>
     <button class="chatbot-button" onclick="resetChat()">↩️ Zpět</button>
   `;
