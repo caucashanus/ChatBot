@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     <div class="faq-item">
       <button class="faq-question">❓ Můžu platit kartou?</button>
-      <div class="faq-answer">Ano, přijímáme hotovost i platební karty.</div>
+      <div class="faq-answer">Ano, na všech našich pobočkách máme platební terminály.</div>
     </div>
 
     <button class="chatbot-button" onclick="resetChat()">↩️ Zpět</button>
