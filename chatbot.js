@@ -158,5 +158,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 };
+  // ZOBRAZENÍ MASKOTA PO 3 SEKUNDÁCH
+setTimeout(() => {
+  const maskot = document.createElement("img");
+  maskot.src = "https://rb-chat-bot.netlify.app/anim.gif"; // Tvůj .gif
+  maskot.id = "chatbot-maskot";
+  document.body.appendChild(maskot);
+}, 3000);
+
 
 });
