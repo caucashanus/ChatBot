@@ -42,10 +42,17 @@
 
 /* Tohle bude fungovat jen na mobilních zařízeních (do 600px) */
 @media (max-width: 600px) {
+  #chatbot-maskot {
+    bottom: 120px; /* posuň ho výš pokud překrývá tlačítka */
+    width: 90px;    /* zmenši ho pro mobil */
+    right: 15px;
+  }
+
   #chatbot-toggle {
     bottom: 90px;
   }
 }
+
 
 #chatbot-box {
   display: none;
@@ -122,6 +129,11 @@
 
 .faq-answer li {
   margin-bottom: 6px;
+}
+
+.chatbot-maskot.show {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 /* Nepoužité/rezervované, můžeš případně využít později */
