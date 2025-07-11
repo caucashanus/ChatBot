@@ -1,11 +1,17 @@
 document.addEventListener("DOMContentLoaded", function () {
+  const hour = new Date().getHours();
+  let greeting = "Vítej v Real Barber!";
+  if (hour < 11) greeting = "Dobré ráno! ☀️";
+  else if (hour < 18) greeting = "Dobrý den! 👋";
+  else greeting = "Krásný večer! 🌙";
+
   const container = document.createElement("div");
   container.id = "chatbot-container";
 
   container.innerHTML = `
     <button id="chatbot-toggle">💬</button>
     <div id="chatbot-box">
-      <h4>Vítej v Real Barber!</h4>
+      <h4>${greeting}</h4>
       <div id="chatbot-content">
         <button class="chatbot-button" id="btn-rezervace">💈 Chci se objednat</button>
         <button class="chatbot-button" id="btn-cenik">💵 Chci znát ceny</button>
