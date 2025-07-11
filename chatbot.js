@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
     <p>S čím ti můžeme pomoci?</p>
     <button class="chatbot-button" onclick="window.location.href='tel:+420608332881'">📞 Zavolat a objednat se</button>
     <button class="chatbot-button" onclick="window.location.href='https://realbarber.cz/rezervace/'">🌐 Objednat se online</button>
-    <button class="chatbot-button" onclick="window.location.href='https://realbarber.cz/kontakt/'">💬 Potřebuju poradit</button>
+    <button class="chatbot-button" onclick="showFAQ()">💬 Potřebuju poradit</button>
     <button class="chatbot-button" onclick="resetChat()">↩️ Zpět</button>
   `;
 };
@@ -79,6 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
       <button class="chatbot-button" id="btn-rezervace">💈 Chci se objednat</button>
       <button class="chatbot-button" id="btn-cenik">💵 Chci znát ceny</button>
       <button class="chatbot-button" id="btn-uces">💡 Chci poradit účes</button>
+      <button class="chatbot-button" onclick="showFAQ()">💬 Potřebuju poradit</button>
     `;
 
     document.getElementById("btn-rezervace").onclick = function () {
@@ -98,4 +99,31 @@ document.addEventListener("DOMContentLoaded", function () {
       `;
     };
   };
+  window.showFAQ = function () {
+  content.innerHTML = `
+    <p>Často kladené otázky:</p>
+    <div class="faq-item">
+      <button class="faq-question">❓ Jak se mohu objednat?</button>
+      <div class="faq-answer">Můžeš nám zavolat nebo použít online rezervaci na stránce <a href='https://realbarber.cz/rezervace/'>Rezervace</a>.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question">❓ Jak dlouho trvá střih?</button>
+      <div class="faq-answer">Standardní střih trvá přibližně 30 minut.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question">❓ Můžu platit kartou?</button>
+      <div class="faq-answer">Ano, přijímáme hotovost i platební karty.</div>
+    </div>
+    <button class="chatbot-button" onclick="resetChat()">↩️ Zpět</button>
+  `;
+
+  const questions = content.querySelectorAll('.faq-question');
+  questions.forEach((btn) => {
+    btn.addEventListener('click', function () {
+      const answer = this.nextElementSibling;
+      answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+    });
+  });
+};
+
 });
