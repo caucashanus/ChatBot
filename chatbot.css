@@ -25,7 +25,7 @@
 /* Tohle bude fungovat jen na mobilních zařízeních (do 600px) */
 @media (max-width: 600px) {
   #chatbot-toggle {
-    bottom: 60px; /* upraví pozici výš pouze na mobilech */
+    bottom: 90px; /* upraví pozici výš pouze na mobilech */
   }
 }
 
