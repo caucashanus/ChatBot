@@ -86,14 +86,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function renderUces() {
     content.innerHTML = `
-      <p>Jak ti mám poradit účes?</p>
-      <button class="chatbot-button" onclick="window.location.href='https://realbarber.cz/inspirace/'">📸 Vybrat si účes z katalogu</button>
-      <button class="chatbot-button" data-face-shape="oval">🧠 Vybrat podle tvaru obličeje (Oválný)</button>
-      <button class="chatbot-button" data-face-shape="kulaty">🧠 Vybrat podle tvaru obličeje (Kulatý)</button>
-      <button class="chatbot-button" data-face-shape="hranaty">🧠 Vybrat podle tvaru obličeje (Hranatý)</button>
+      <p>Vyber si tvar svého obličeje:</p>
+      <div class="face-selection">
+        <img src="oval.gif" data-face-shape="oval" class="face-gif">
+        <img src="kulaty.gif" data-face-shape="kulaty" class="face-gif">
+        <img src="hranaty.gif" data-face-shape="hranaty" class="face-gif">
+      </div>
       <button class="chatbot-button" id="back-to-start">↩️ Zpět</button>
     `;
   }
+
+  content.addEventListener("click", (e) => {
+    const gif = e.target;
+    if (gif.classList.contains("face-gif") && gif.dataset.faceShape) {
+      showHairAdvice(gif.dataset.faceShape);
+    }
+  });
 
   function showHairAdvice(type) {
     let message = "";
