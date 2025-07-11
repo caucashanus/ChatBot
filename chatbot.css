@@ -8,15 +8,25 @@
 }
 
 #chatbot-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
   background-color: #1A1A1A;
   color: #F1F1F1;
   border: none;
   border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  font-size: 24px;
+  padding: 15px;
+  font-size: 20px;
   cursor: pointer;
-  box-shadow: 0 0 10px #000;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+/* Tohle bude fungovat jen na mobilních zařízeních (do 600px) */
+@media (max-width: 600px) {
+  #chatbot-toggle {
+    bottom: 60px; /* upraví pozici výš pouze na mobilech */
+  }
 }
 
 #chatbot-box {
