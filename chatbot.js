@@ -161,10 +161,16 @@ document.addEventListener("DOMContentLoaded", function () {
   // ZOBRAZENÍ MASKOTA PO 3 SEKUNDÁCH
 setTimeout(() => {
   const maskot = document.createElement("img");
-  maskot.src = "https://rb-chat-bot.netlify.app/anim.gif"; // Tvůj .gif
+  maskot.src = "https://rb-chat-bot.netlify.app/anim.gif";
+  maskot.className = "chatbot-maskot"; // přidání CSS třídy
   maskot.id = "chatbot-maskot";
+
+  // Kliknutí na maskota otevře chat
+  maskot.onclick = () => {
+    document.getElementById("chatbot-toggle").click();
+  };
+
   document.body.appendChild(maskot);
 }, 3000);
-
 
 });
