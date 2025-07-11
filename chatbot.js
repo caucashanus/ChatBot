@@ -104,7 +104,8 @@ document.addEventListener("DOMContentLoaded", function () {
     <p>Často kladené otázky:</p>
     <div class="faq-item">
       <button class="faq-question">❓ Jak se mohu objednat?</button>
-      <div class="faq-answer">Můžeš nám zavolat nebo použít online rezervaci na stránce <a href='https://realbarber.cz/rezervace/'>Rezervace</a>.</div>
+      <div class="faq-answer">
+      Můžeš nám <a href="tel:+420608332881">zavolat</a> nebo použít online rezervaci na stránce <a href="https://realbarber.cz/rezervace/">Rezervace</a>.
     </div>
     <div class="faq-item">
       <button class="faq-question">❓ Jak dlouho trvá střih?</button>
