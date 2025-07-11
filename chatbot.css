@@ -69,6 +69,7 @@
   border-radius: 5px;
   font-weight: bold;
 }
+#chatbot-FAQ Delka sluzeb
 .faq-answer {
   display: none;
   background-color: #0F0F0F;
@@ -78,3 +79,17 @@
   margin-top: 5px;
   border-radius: 5px;
 }
+.faq-answer a {
+  color: #F1F1F1;
+  text-decoration: underline;
+}
+
+.faq-answer ul {
+  list-style-type: none;
+  margin-top: 10px;
+}
+
+.faq-answer li {
+  margin-bottom: 6px;
+}
+
