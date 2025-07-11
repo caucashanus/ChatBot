@@ -107,13 +107,37 @@ document.addEventListener("DOMContentLoaded", function () {
       <div class="faq-answer">
       Můžeš nám <a href="tel:+420608332881">zavolat</a> nebo použít online rezervaci na stránce <a href="https://realbarber.cz/rezervace/">Rezervace</a>.
     </div>
-    <div class="faq-item">
-      <button class="faq-question">❓ Jak dlouho trvá střih?</button>
-      <div class="faq-answer">Standardní střih trvá přibližně 30 minut.</div>
-    </div>
+   <div class="faq-item">
+  <button class="faq-question">❓ Jak dlouho trvá střihání?</button>
+  <div class="faq-answer">
+    <p><strong>Obvyklá délka jednotlivých služeb:</strong></p>
+    <ul style="padding-left: 20px; margin: 0;">
+      <li>
+        <a href="https://realbarber.cz/sluzby/barber-klasicke-moderni-strihani-vlasu/">
+          💇‍♂️ Stříhání vlasů
+        </a>: 30–50 minut
+      </li>
+      <li>
+        <a href="https://realbarber.cz/sluzby/uprava-vousu/">
+          🧔 Úprava vousů
+        </a>: 25–35 minut
+      </li>
+      <li>
+        <a href="https://realbarber.cz/sluzby/kompletni-pece-real-barber/">
+          💈 Stříhání + vousy (kompletní péče)
+        </a>: 50–80 minut
+      </li>
+      <li>
+        <a href="https://realbarber.cz/sluzby/detske-strihani-do-12-let/">
+          👦 Dětské stříhání (do 12 let)
+        </a>: 20–35 minut
+      </li>
+    </ul>
+  </div>
+</div>
     <div class="faq-item">
       <button class="faq-question">❓ Můžu platit kartou?</button>
-      <div class="faq-answer">Ano, přijímáme hotovost i platební karty.</div>
+      <div class="faq-answer">Ano, na všech našich lokacích mužete platit skrze terminál.</div>
     </div>
     <button class="chatbot-button" onclick="resetChat()">↩️ Zpět</button>
   `;
