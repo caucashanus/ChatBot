@@ -182,7 +182,7 @@ document.addEventListener("DOMContentLoaded", function () {
         { src: "angular.jpg", url: "https://realbarber.cz/sluzby/angular/", label: "Angular" }
       ],
       "hranatý": [
-        { src: "soft.jpg", url: "https://realbarber.cz/sluzby/soft/", label: "Soft" },
+        { src: "soft.jpg", url: "https://realbarber.cz/sluzby/taper-fade-na-afro-vlasech/", label: "Taper Fade" },
         { src: "wavy.jpg", url: "https://realbarber.cz/sluzby/wavy/", label: "Wavy" },
         { src: "curved.jpg", url: "https://realbarber.cz/sluzby/curved/", label: "Curved" },
         { src: "rounded.jpg", url: "https://realbarber.cz/sluzby/rounded/", label: "Rounded" },
