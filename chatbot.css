@@ -136,31 +136,28 @@
   transform: translateX(0);
   
 }
+
 / Gify ukazujici tvary obliceje /
+
 .gif-oval {
-  max-width: 90px;
-  border-radius: 10px;
-  border: 2px solid #ccc;
-  transition: transform 0.3s ease;
+  width: 120px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
 .gif-kulaty {
-  max-width: 90px;
-  border-radius: 10px;
-  border: 2px solid #ccc;
-  transition: transform 0.3s ease;
+  width: 120px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
 .gif-hranaty {
-  max-width: 90px;
-  border-radius: 10px;
-  border: 2px solid #ccc;
-  transition: transform 0.3s ease;
-}
-
-.face-gif:hover {
-  transform: scale(1.1);
-  border-color: #f1f1f1;
+  width: 120px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
 /* Nepoužité/rezervované, můžeš případně využít později */
