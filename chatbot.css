@@ -145,17 +145,43 @@
 }
 
 /* Specifické styly pro každý typ */
+
 .gif-oval {
-  /* např. border: 2px solid green; */
+  width: 120px;
+  height: auto;
+  border-radius: 10px;
+  border: 2px solid green;
 }
 
 .gif-kulaty {
-  /* např. border: 2px solid blue; */
+  width: 120px;
+  height: auto;
+  border-radius: 10px;
+  border: 2px solid red;
 }
 
 .gif-hranaty {
-  /* např. border: 2px solid red; */
+  width: 120px;
+  height: auto;
+  border-radius: 10px;
+  border: 2px solid blue;
 }
+
+/* Responzivní změna uspořádání na mobilu */
+@media (max-width: 600px) {
+  #face-overlay > div {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .gif-oval,
+  .gif-kulaty,
+  .gif-hranaty {
+    width: 80px;
+    margin-bottom: 10px;
+  }
+}
+
 
 
 /* Nepoužité/rezervované, můžeš případně využít později */
