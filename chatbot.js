@@ -171,12 +171,11 @@ document.addEventListener("DOMContentLoaded", function () {
   function renderHaircutSuggestions(type, wrapper) {
     const haircutSets = {
       "oválný": [
-        { src: "buzzcut.jpg", url: "https://realbarber.cz/sluzby/buzz-cut/", label: "Buzzcut" },
-        { src: "fade.jpg", url: "https://realbarber.cz/sluzby/fade/", label: "Fade" },
-        { src: "pompadour.jpg", url: "https://realbarber.cz/sluzby/pompadour/", label: "Pompadour" },
-        { src: "quiff.jpg", url: "https://realbarber.cz/sluzby/quiff/", label: "Quiff" },
-        { src: "undercut.jpg", url: "https://realbarber.cz/sluzby/undercut/", label: "Undercut" },
-        { src: "classic.jpg", url: "https://realbarber.cz/sluzby/classic/", label: "Classic" }
+        { src: "https://rb-chat-bot.netlify.app/oldmoney.jpg", url: "https://realbarber.cz/sluzby/old-money-haircut/", label: "Old Money" },
+        { src: "https://rb-chat-bot.netlify.app/frenchcrop.jpg", url: "https://realbarber.cz/sluzby/french-crop/", label: "French Crop" },
+        { src: "https://rb-chat-bot.netlify.app/ucesmcgregor.jpg", url: "https://realbarber.cz/sluzby/uces-conor-mcgregor/", label: "Conor Mcgregor" },
+        { src: "https://rb-chat-bot.netlify.app/slickback.jpg", url: "https://realbarber.cz/sluzby/slick-back/", label: "Slickback" },
+        { src: "https://rb-chat-bot.netlify.app/elegantni.jpg", url: "https://realbarber.cz/sluzby/elegantne-nacesane-vlasy-dozadu-s-vytratem-na-krku/", label: "Classic" }
       ],
       "kulatý": [
         { src: "textured.jpg", url: "https://realbarber.cz/sluzby/textured/", label: "Textured" },
