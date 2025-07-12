@@ -186,8 +186,7 @@ document.addEventListener("DOMContentLoaded", function () {
         { src: "https://rb-chat-bot.netlify.app/wavytop.jpg", url: "https://realbarber.cz/sluzby/wavy-top-s-taper-fadem/", label: "Wavy Top" },
         { src: "https://rb-chat-bot.netlify.app/fluffy.jpg", url: "https://realbarber.cz/sluzby/fluffy-uces/", label: "Fluffy účes" },
         { src: "https://rb-chat-bot.netlify.app/pushedback.jpg", url: "https://realbarber.cz/sluzby/pushed-back/", label: "Pushed Back" },
-        { src: "flowing.jpg", url: "https://realbarber.cz/sluzby/flowing/", label: "Flowing" },
-        { src: "smooth.jpg", url: "https://realbarber.cz/sluzby/smooth/", label: "Smooth" }
+        { src: "https://rb-chat-bot.netlify.app/vlasydopredu.jpg", url: "https://realbarber.cz/sluzby/rozcuchane-vlasy-dopredu/", label: "Rozcuchané vlasy" },
       ]
     };
 
