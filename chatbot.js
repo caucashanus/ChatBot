@@ -92,194 +92,66 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
   }
 
-  function renderFaceShapesOverlay() {
-    const overlay = document.createElement("div");
-    overlay.id = "face-overlay";
-    overlay.style.position = "fixed";
-    overlay.style.top = "0";
-    overlay.style.left = "0";
-    overlay.style.width = "100vw";
-    overlay.style.height = "100vh";
-    overlay.style.backgroundColor = "rgba(0,0,0,0.8)";
-    overlay.style.zIndex = "10000";
-    overlay.style.display = "flex";
-    overlay.style.alignItems = "center";
-    overlay.style.justifyContent = "center";
-    overlay.style.padding = "20px";
-    overlay.style.boxSizing = "border-box";
+  function showInfoOverlay() {
+    const infoOverlay = document.createElement("div");
+    infoOverlay.style.position = "fixed";
+    infoOverlay.style.top = "0";
+    infoOverlay.style.left = "0";
+    infoOverlay.style.width = "100vw";
+    infoOverlay.style.height = "100vh";
+    infoOverlay.style.backgroundColor = "rgba(0, 0, 0, 0.9)";
+    infoOverlay.style.zIndex = "10001";
+    infoOverlay.style.display = "flex";
+    infoOverlay.style.justifyContent = "center";
+    infoOverlay.style.alignItems = "center";
+    infoOverlay.style.padding = "20px";
+    infoOverlay.style.boxSizing = "border-box";
 
-    const wrapper = document.createElement("div");
-    wrapper.style.display = "flex";
-    wrapper.style.flexDirection = "row";
-    wrapper.style.flexWrap = "wrap";
-    wrapper.style.justifyContent = "center";
-    wrapper.style.gap = "20px";
-    wrapper.style.maxWidth = "100%";
+    const box = document.createElement("div");
+    box.style.maxWidth = "600px";
+    box.style.backgroundColor = "#111";
+    box.style.color = "#fff";
+    box.style.padding = "20px";
+    box.style.borderRadius = "10px";
+    box.style.textAlign = "left";
+    box.style.position = "relative";
 
-    const faceShapes = [
-      { src: "https://rb-chat-bot.netlify.app/oval.gif", class: "gif-oval", label: "Oválný" },
-      { src: "https://rb-chat-bot.netlify.app/kulaty.gif", class: "gif-kulaty", label: "Kulatý" },
-      { src: "https://rb-chat-bot.netlify.app/hranaty.gif", class: "gif-hranaty", label: "Hranatý" }
-    ];
+    const close = document.createElement("span");
+    close.textContent = "×";
+    close.style.position = "absolute";
+    close.style.top = "10px";
+    close.style.right = "15px";
+    close.style.cursor = "pointer";
+    close.style.fontSize = "20px";
+    close.style.fontWeight = "bold";
 
-    faceShapes.forEach(({ src, class: className, label: labelText }) => {
-      const container = document.createElement("div");
-      container.style.textAlign = "center";
-      container.style.width = "100px";
+    close.onclick = () => infoOverlay.remove();
 
-      const img = document.createElement("img");
-      img.src = src;
-      img.dataset.faceShape = labelText.toLowerCase();
-      img.classList.add("face-gif", className);
-      img.style.cursor = "pointer";
-      img.style.width = "100%";
-
-      const label = document.createElement("div");
-      label.textContent = labelText;
-      label.style.color = "#fff";
-      label.style.marginTop = "8px";
-      label.style.fontWeight = "bold";
-      label.style.fontSize = "14px";
-
-      container.appendChild(img);
-      container.appendChild(label);
-      wrapper.appendChild(container);
-    });
-
-    overlay.appendChild(wrapper);
-    document.body.appendChild(overlay);
-
-    overlay.addEventListener("click", (e) => {
-      if (e.target === overlay) overlay.remove();
-    });
-
-    document.addEventListener("keydown", function escHandler(e) {
-      if (e.key === "Escape") {
-        overlay.remove();
-        document.removeEventListener("keydown", escHandler);
-      }
-    });
-
-    wrapper.querySelectorAll(".face-gif").forEach((gif) => {
-      gif.addEventListener("click", () => {
-        wrapper.innerHTML = "";
-        renderHaircutSuggestions(gif.dataset.faceShape, wrapper);
-      });
-    });
-  }
-
-  function renderHaircutSuggestions(type, wrapper) {
-    const haircutSets = {
-      "oválný": [
-        { src: "https://rb-chat-bot.netlify.app/oldmoney.jpg", url: "https://realbarber.cz/sluzby/old-money-haircut/", label: "Old Money" },
-        { src: "https://rb-chat-bot.netlify.app/frenchcrop.jpg", url: "https://realbarber.cz/sluzby/french-crop/", label: "French Crop" },
-        { src: "https://rb-chat-bot.netlify.app/ucesmcgrergor.jpg", url: "https://realbarber.cz/sluzby/uces-conor-mcgregor/", label: "Conor Mcgregor" },
-        { src: "https://rb-chat-bot.netlify.app/slickback.jpg", url: "https://realbarber.cz/sluzby/slick-back/", label: "Slickback" },
-        { src: "https://rb-chat-bot.netlify.app/elegantni.png", url: "https://realbarber.cz/sluzby/elegantne-nacesane-vlasy-dozadu-s-vytratem-na-krku/", label: "Classic" }
-      ],
-      "kulatý": [
-        { src: "https://rb-chat-bot.netlify.app/yzouces.jpg", url: "https://realbarber.cz/sluzby/uces-yzomandias-crop/", label: "Účes Yzomandias" },
-        { src: "https://rb-chat-bot.netlify.app/undercut.jpg", url: "https://realbarber.cz/sluzby/undercut-se-skin-fade/", label: "Under Cut" },
-        { src: "https://rb-chat-bot.netlify.app/sergeiuces.jpg", url: "https://realbarber.cz/sluzby/uces-sergei-barracuda/", label: "Účes Sergei Barracuda" },
-        { src: "https://rb-chat-bot.netlify.app/fringeup.jpg", url: "https://realbarber.cz/sluzby/fringe-up-upravene-vousy/", label: "Fringe Up" },
-        { src: "https://rb-chat-bot.netlify.app/quiff.jpg", url: "https://realbarber.cz/sluzby/faux-hawk-2/", label: "Faux Hawk" },
-      ],
-      "hranatý": [
-        { src: "https://rb-chat-bot.netlify.app/taperfade.jpg", url: "https://realbarber.cz/sluzby/taper-fade-na-afro-vlasech/", label: "Taper Fade" },
-        { src: "https://rb-chat-bot.netlify.app/wavytop.jpg", url: "https://realbarber.cz/sluzby/wavy-top-s-taper-fadem/", label: "Wavy Top" },
-        { src: "https://rb-chat-bot.netlify.app/fluffy.jpg", url: "https://realbarber.cz/sluzby/fluffy-uces/", label: "Fluffy účes" },
-        { src: "https://rb-chat-bot.netlify.app/pushedback.jpg", url: "https://realbarber.cz/sluzby/pushed-back/", label: "Pushed Back" },
-        { src: "https://rb-chat-bot.netlify.app/vlasydopredu.jpg", url: "https://realbarber.cz/sluzby/rozcuchane-vlasy-dopredu/", label: "Rozcuchané vlasy" }
-      ]
-    };
-
-    wrapper.style.display = "flex";
-    wrapper.style.flexWrap = "wrap";
-    wrapper.style.justifyContent = "center";
-    wrapper.style.gap = "20px";
-
-    const selected = haircutSets[type];
-    selected.forEach(({ src, url, label }) => {
-      const container = document.createElement("div");
-      container.style.textAlign = "center";
-      container.style.width = "150px";
-      container.style.boxSizing = "border-box";
-
-      const a = document.createElement("a");
-      a.href = url;
-      a.target = "_blank";
-
-      const img = document.createElement("img");
-      img.src = src;
-      img.style.width = "100%";
-      img.style.borderRadius = "10px";
-      img.style.marginBottom = "5px";
-      img.style.display = "block";
-      a.appendChild(img);
-
-      const caption = document.createElement("div");
-      caption.textContent = label;
-      caption.style.color = "#fff";
-      caption.style.fontSize = "14px";
-      caption.style.fontWeight = "bold";
-
-      container.appendChild(a);
-      container.appendChild(caption);
-      wrapper.appendChild(container);
-    });
-  }
-
-  function resetChat() {
-    content.innerHTML = `
-      <button class="chatbot-button" id="btn-rezervace">💈 Chci se objednat</button>
-      <button class="chatbot-button" id="btn-cenik">💵 Chci znát ceny</button>
-      <button class="chatbot-button" id="btn-uces">💡 Chci poradit účes</button>
-      <button class="chatbot-button" id="faq-button">💬 Potřebuju poradit</button>
-    `;
-  }
-
-  function showFAQ() {
-    content.innerHTML = `
-      <p>Často kladené otázky:</p>
-      <div class="faq-item">
-        <button class="faq-question">❓ Jak se mohu objednat?</button>
-        <div class="faq-answer">
-          Můžeš nám <a href="tel:+420608332881">zavolat</a> nebo použít online rezervaci na stránce
-          <a href="https://realbarber.cz/rezervace/">Rezervace</a>.
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question">❓ Jak dlouho trvá střihání?</button>
-        <div class="faq-answer">
-          <p><strong>Obvyklá délka jednotlivých služeb:</strong></p>
-          <ul>
-            <li><a href="https://realbarber.cz/sluzby/barber-klasicke-moderni-strihani-vlasu/">💇‍♂️ Stříhání vlasů</a>: 30–50 minut</li>
-            <li><a href="https://realbarber.cz/sluzby/uprava-vousu/">🧔 Úprava vousů</a>: 25–35 minut</li>
-            <li><a href="https://realbarber.cz/sluzby/kompletni-pece-real-barber/">💈 Stříhání + vousy</a>: 50–80 minut</li>
-            <li><a href="https://realbarber.cz/sluzby/detske-strihani-do-12-let/">👦 Dětské stříhání</a>: 20–35 minut</li>
-          </ul>
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question">❓ Můžu platit kartou?</button>
-        <div class="faq-answer">Ano, na všech našich pobočkách máme platební terminály.</div>
-      </div>
-      <button class="chatbot-button" id="back-to-start">↩️ Zpět</button>
+    const paragraph = document.createElement("p");
+    paragraph.innerHTML = `
+      Na základě tvaru Vašeho obličeje Vám nabízíme inspiraci v podobě vhodných účesů.<br><br>
+      To však neznamená, že by Vám neslušely i jiné styly – každý člověk je jedinečný. Součástí každé naší služby je osobní konzultace, během které s Vámi náš stylista probere Vaše představy a zároveň nabídne svůj odborný pohled.<br><br>
+      Naším cílem je splnit Vaše přání, nebo Vám naopak pomoci najít ideální střih přímo na míru.<br><br>
     `;
 
-    const questions = content.querySelectorAll('.faq-question');
-    const answers = content.querySelectorAll('.faq-answer');
+    const katalogBtn = document.createElement("a");
+    katalogBtn.href = "https://realbarber.cz/inspirace/";
+    katalogBtn.target = "_blank";
+    katalogBtn.textContent = "Katalog účesů";
+    katalogBtn.style.display = "inline-block";
+    katalogBtn.style.marginTop = "10px";
+    katalogBtn.style.padding = "10px 20px";
+    katalogBtn.style.backgroundColor = "#333";
+    katalogBtn.style.color = "#fff";
+    katalogBtn.style.borderRadius = "5px";
+    katalogBtn.style.textDecoration = "none";
 
-    answers.forEach((a) => (a.style.display = 'none'));
-
-    questions.forEach((btn) => {
-      btn.addEventListener('click', function () {
-        const thisAnswer = this.nextElementSibling;
-        answers.forEach((a) => {
-          if (a !== thisAnswer) a.style.display = 'none';
-        });
-        thisAnswer.style.display = thisAnswer.style.display === 'block' ? 'none' : 'block';
-      });
-    });
+    box.appendChild(close);
+    box.appendChild(paragraph);
+    box.appendChild(katalogBtn);
+    infoOverlay.appendChild(box);
+    document.body.appendChild(infoOverlay);
   }
+
+  window.showInfoOverlay = showInfoOverlay;
 });
