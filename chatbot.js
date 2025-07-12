@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
     } else if (target.id === "faq-button") {
       showFAQ();
     } else if (target.id === "show-face-shapes") {
-      renderFaceShapes();
+      renderFaceShapesOverlay();
     }
   });
 
@@ -95,24 +95,56 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
   }
 
-  function renderFaceShapes() {
-    content.innerHTML = `
-      <p>Vyber si tvar svého obličeje:</p>
-      <div class="face-selection">
-        <img src="oval.gif" data-face-shape="oval" class="face-gif">
-        <img src="kulaty.gif" data-face-shape="kulaty" class="face-gif">
-        <img src="hranaty.gif" data-face-shape="hranaty" class="face-gif">
-      </div>
-      <button class="chatbot-button" id="back-to-start">↩️ Zpět</button>
-    `;
-  }
+  function renderFaceShapesOverlay() {
+    const overlay = document.createElement("div");
+    overlay.id = "face-overlay";
+    overlay.style.position = "fixed";
+    overlay.style.top = "0";
+    overlay.style.left = "0";
+    overlay.style.width = "100vw";
+    overlay.style.height = "100vh";
+    overlay.style.backgroundColor = "rgba(0,0,0,0.8)";
+    overlay.style.zIndex = "10000";
+    overlay.style.display = "flex";
+    overlay.style.alignItems = "center";
+    overlay.style.justifyContent = "center";
 
-  content.addEventListener("click", (e) => {
-    const gif = e.target;
-    if (gif.classList.contains("face-gif") && gif.dataset.faceShape) {
-      showHairAdvice(gif.dataset.faceShape);
-    }
-  });
+    const wrapper = document.createElement("div");
+    wrapper.style.display = "flex";
+    wrapper.style.gap = "20px";
+
+    ["oval.gif", "kulaty.gif", "hranaty.gif"].forEach((src, i) => {
+      const img = document.createElement("img");
+      img.src = src;
+      img.dataset.faceShape = src.split(".")[0];
+      img.style.cursor = "pointer";
+      img.style.maxWidth = "100px";
+      img.style.height = "auto";
+      img.classList.add("face-gif");
+      wrapper.appendChild(img);
+    });
+
+    overlay.appendChild(wrapper);
+    document.body.appendChild(overlay);
+
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) overlay.remove();
+    });
+
+    document.addEventListener("keydown", function escHandler(e) {
+      if (e.key === "Escape") {
+        overlay.remove();
+        document.removeEventListener("keydown", escHandler);
+      }
+    });
+
+    wrapper.querySelectorAll(".face-gif").forEach((gif) => {
+      gif.addEventListener("click", () => {
+        overlay.remove();
+        showHairAdvice(gif.dataset.faceShape);
+      });
+    });
+  }
 
   function showHairAdvice(type) {
     let message = "";
@@ -184,3 +216,4 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+
