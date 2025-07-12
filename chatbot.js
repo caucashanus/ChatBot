@@ -113,24 +113,24 @@ document.addEventListener("DOMContentLoaded", function () {
     wrapper.style.display = "flex";
     wrapper.style.gap = "20px";
 
-  const faceShapes = [
-  { src: "https://rb-chat-bot.netlify.app/oval.gif", class: "gif-oval" },
-  { src: "https://rb-chat-bot.netlify.app/kulaty.gif", class: "gif-kulaty" },
-  { src: "https://rb-chat-bot.netlify.app/hranaty.gif", class: "gif-hranaty" }
-];
+    const faceShapes = [
+      { src: "https://rb-chat-bot.netlify.app/oval.gif", class: "gif-oval", label: "Oválný" },
+      { src: "https://rb-chat-bot.netlify.app/kulaty.gif", class: "gif-kulaty", label: "Kulatý" },
+      { src: "https://rb-chat-bot.netlify.app/hranaty.gif", class: "gif-hranaty", label: "Hranatý" }
+    ];
 
-    faceShapes.forEach(({ src, class: className }) => {
-      const container = document.createElement("div"); // ← CHYBĚLO
-  container.style.textAlign = "center";
-      
+    faceShapes.forEach(({ src, class: className, label: labelText }) => {
+      const container = document.createElement("div");
+      container.style.textAlign = "center";
+
       const img = document.createElement("img");
       img.src = src;
-      img.dataset.faceShape = src.split(".")[0];
+      img.dataset.faceShape = labelText.toLowerCase();
       img.classList.add("face-gif", className);
       img.style.cursor = "pointer";
 
-       const label = document.createElement("div");
-      label.textContent = src.split(".")[0].toUpperCase(); // Např. OVAL
+      const label = document.createElement("div");
+      label.textContent = labelText;
       label.style.color = "#fff";
       label.style.marginTop = "8px";
       label.style.fontWeight = "bold";
@@ -165,11 +165,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function showHairAdvice(type) {
     let message = "";
-    if (type === "oval") {
+    if (type === "oválný") {
       message = "Máte ideální tvar obličeje – hodí se vám téměř každý střih. Doporučujeme fade nebo slick back.";
-    } else if (type === "kulaty") {
+    } else if (type === "kulatý") {
       message = "Zkuste účesy, které prodlouží obličej – pompadour, high fade nebo undercut s objemem nahoře.";
-    } else if (type === "hranaty") {
+    } else if (type === "hranatý") {
       message = "U hranatého obličeje skvěle fungují kratší boky a více textury nahoře – zkuste crop nebo quiff.";
     }
 
