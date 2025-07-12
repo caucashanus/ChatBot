@@ -166,43 +166,58 @@ document.addEventListener("DOMContentLoaded", function () {
   function renderHaircutSuggestions(type, wrapper) {
     const haircutSets = {
       "oválný": [
-        { src: "buzzcut.jpg", url: "https://realbarber.cz/sluzby/buzz-cut/" },
-        { src: "fade.jpg", url: "https://realbarber.cz/sluzby/fade/" },
-        { src: "pompadour.jpg", url: "https://realbarber.cz/sluzby/pompadour/" },
-        { src: "quiff.jpg", url: "https://realbarber.cz/sluzby/quiff/" },
-        { src: "undercut.jpg", url: "https://realbarber.cz/sluzby/undercut/" },
-        { src: "classic.jpg", url: "https://realbarber.cz/sluzby/classic/" }
+        { src: "buzzcut.jpg", url: "https://realbarber.cz/sluzby/buzz-cut/", label: "Buzzcut" },
+        { src: "fade.jpg", url: "https://realbarber.cz/sluzby/fade/", label: "Fade" },
+        { src: "pompadour.jpg", url: "https://realbarber.cz/sluzby/pompadour/", label: "Pompadour" },
+        { src: "quiff.jpg", url: "https://realbarber.cz/sluzby/quiff/", label: "Quiff" },
+        { src: "undercut.jpg", url: "https://realbarber.cz/sluzby/undercut/", label: "Undercut" },
+        { src: "classic.jpg", url: "https://realbarber.cz/sluzby/classic/", label: "Classic" }
       ],
       "kulatý": [
-        { src: "textured.jpg", url: "https://realbarber.cz/sluzby/textured/" },
-        { src: "sidepart.jpg", url: "https://realbarber.cz/sluzby/side-part/" },
-        { src: "messy.jpg", url: "https://realbarber.cz/sluzby/messy/" },
-        { src: "spiky.jpg", url: "https://realbarber.cz/sluzby/spiky/" },
-        { src: "layered.jpg", url: "https://realbarber.cz/sluzby/layered/" },
-        { src: "angular.jpg", url: "https://realbarber.cz/sluzby/angular/" }
+        { src: "textured.jpg", url: "https://realbarber.cz/sluzby/textured/", label: "Textured" },
+        { src: "sidepart.jpg", url: "https://realbarber.cz/sluzby/side-part/", label: "Side Part" },
+        { src: "messy.jpg", url: "https://realbarber.cz/sluzby/messy/", label: "Messy" },
+        { src: "spiky.jpg", url: "https://realbarber.cz/sluzby/spiky/", label: "Spiky" },
+        { src: "layered.jpg", url: "https://realbarber.cz/sluzby/layered/", label: "Layered" },
+        { src: "angular.jpg", url: "https://realbarber.cz/sluzby/angular/", label: "Angular" }
       ],
       "hranatý": [
-        { src: "soft.jpg", url: "https://realbarber.cz/sluzby/soft/" },
-        { src: "wavy.jpg", url: "https://realbarber.cz/sluzby/wavy/" },
-        { src: "curved.jpg", url: "https://realbarber.cz/sluzby/curved/" },
-        { src: "rounded.jpg", url: "https://realbarber.cz/sluzby/rounded/" },
-        { src: "flowing.jpg", url: "https://realbarber.cz/sluzby/flowing/" },
-        { src: "smooth.jpg", url: "https://realbarber.cz/sluzby/smooth/" }
+        { src: "soft.jpg", url: "https://realbarber.cz/sluzby/soft/", label: "Soft" },
+        { src: "wavy.jpg", url: "https://realbarber.cz/sluzby/wavy/", label: "Wavy" },
+        { src: "curved.jpg", url: "https://realbarber.cz/sluzby/curved/", label: "Curved" },
+        { src: "rounded.jpg", url: "https://realbarber.cz/sluzby/rounded/", label: "Rounded" },
+        { src: "flowing.jpg", url: "https://realbarber.cz/sluzby/flowing/", label: "Flowing" },
+        { src: "smooth.jpg", url: "https://realbarber.cz/sluzby/smooth/", label: "Smooth" }
       ]
     };
 
     const selected = haircutSets[type];
-    selected.forEach(({ src, url }) => {
+    selected.forEach(({ src, url, label }) => {
+      const container = document.createElement("div");
+      container.style.textAlign = "center";
+
       const a = document.createElement("a");
       a.href = url;
       a.target = "_blank";
+
       const img = document.createElement("img");
       img.src = src;
       img.style.width = "100px";
       img.style.borderRadius = "10px";
       img.style.margin = "10px";
+      img.style.display = "block";
       a.appendChild(img);
-      wrapper.appendChild(a);
+
+      const caption = document.createElement("div");
+      caption.textContent = label;
+      caption.style.color = "#fff";
+      caption.style.marginTop = "5px";
+      caption.style.fontSize = "14px";
+      caption.style.fontWeight = "bold";
+
+      container.appendChild(a);
+      container.appendChild(caption);
+      wrapper.appendChild(container);
     });
   }
 
@@ -260,4 +275,3 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
-
