@@ -183,7 +183,7 @@ document.addEventListener("DOMContentLoaded", function () {
       ],
       "hranatý": [
         { src: "https://rb-chat-bot.netlify.app/taperfade.jpg", url: "https://realbarber.cz/sluzby/taper-fade-na-afro-vlasech/", label: "Taper Fade" },
-        { src: "wavy.jpg", url: "https://realbarber.cz/sluzby/wavy-top-s-taper-fadem/", label: "Wavy Top" },
+        { src: "https://rb-chat-bot.netlify.app/wavytop.jpg", url: "https://realbarber.cz/sluzby/wavy-top-s-taper-fadem/", label: "Wavy Top" },
         { src: "curved.jpg", url: "https://realbarber.cz/sluzby/curved/", label: "Curved" },
         { src: "rounded.jpg", url: "https://realbarber.cz/sluzby/rounded/", label: "Rounded" },
         { src: "flowing.jpg", url: "https://realbarber.cz/sluzby/flowing/", label: "Flowing" },
