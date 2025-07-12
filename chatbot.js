@@ -175,7 +175,7 @@ document.addEventListener("DOMContentLoaded", function () {
         { src: "https://rb-chat-bot.netlify.app/frenchcrop.jpg", url: "https://realbarber.cz/sluzby/french-crop/", label: "French Crop" },
         { src: "https://rb-chat-bot.netlify.app/ucesmcgregor.jpg", url: "https://realbarber.cz/sluzby/uces-conor-mcgregor/", label: "Conor Mcgregor" },
         { src: "https://rb-chat-bot.netlify.app/slickback.jpg", url: "https://realbarber.cz/sluzby/slick-back/", label: "Slickback" },
-        { src: "https://rb-chat-bot.netlify.app/elegantni.jpg", url: "https://realbarber.cz/sluzby/elegantne-nacesane-vlasy-dozadu-s-vytratem-na-krku/", label: "Classic" }
+        { src: "https://rb-chat-bot.netlify.app/elegantni.png", url: "https://realbarber.cz/sluzby/elegantne-nacesane-vlasy-dozadu-s-vytratem-na-krku/", label: "Classic" }
       ],
       "kulatý": [
         { src: "textured.jpg", url: "https://realbarber.cz/sluzby/textured/", label: "Textured" },
