@@ -178,12 +178,11 @@ document.addEventListener("DOMContentLoaded", function () {
         { src: "https://rb-chat-bot.netlify.app/elegantni.png", url: "https://realbarber.cz/sluzby/elegantne-nacesane-vlasy-dozadu-s-vytratem-na-krku/", label: "Classic" }
       ],
       "kulatý": [
-        { src: "textured.jpg", url: "https://realbarber.cz/sluzby/textured/", label: "Textured" },
-        { src: "sidepart.jpg", url: "https://realbarber.cz/sluzby/side-part/", label: "Side Part" },
-        { src: "messy.jpg", url: "https://realbarber.cz/sluzby/messy/", label: "Messy" },
-        { src: "spiky.jpg", url: "https://realbarber.cz/sluzby/spiky/", label: "Spiky" },
-        { src: "layered.jpg", url: "https://realbarber.cz/sluzby/layered/", label: "Layered" },
-        { src: "angular.jpg", url: "https://realbarber.cz/sluzby/angular/", label: "Angular" }
+        { src: "https://rb-chat-bot.netlify.app/yzouces.jpg", url: "https://realbarber.cz/sluzby/uces-yzomandias-crop/", label: "Účes Yzomandias" },
+        { src: "https://rb-chat-bot.netlify.app/undercut.jpg", url: "https://realbarber.cz/sluzby/undercut-se-skin-fade/", label: "Under Cut" },
+        { src: "https://rb-chat-bot.netlify.app/sergeiuces.jpg", url: "https://realbarber.cz/sluzby/uces-sergei-barracuda/", label: "Účes Sergei Barracuda" },
+        { src: "https://rb-chat-bot.netlify.app/fringeup.jpg", url: "https://realbarber.cz/sluzby/fringe-up-upravene-vousy/", label: "Fringe Up" },
+        { src: "https://rb-chat-bot.netlify.app/quiff.jpg", url: "https://realbarber.cz/sluzby/faux-hawk-2/", label: "Faux Hawk" },
       ],
       "hranatý": [
         { src: "https://rb-chat-bot.netlify.app/taperfade.jpg", url: "https://realbarber.cz/sluzby/taper-fade-na-afro-vlasech/", label: "Taper Fade" },
