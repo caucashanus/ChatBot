@@ -134,6 +134,33 @@
 .chatbot-maskot.show {
   opacity: 1;
   transform: translateX(0);
+  
+}
+/ Gify ukazujici tvary obliceje /
+.gif-oval {
+  max-width: 90px;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+  transition: transform 0.3s ease;
+}
+
+.gif-kulaty {
+  max-width: 90px;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+  transition: transform 0.3s ease;
+}
+
+.gif-hranaty {
+  max-width: 90px;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+  transition: transform 0.3s ease;
+}
+
+.face-gif:hover {
+  transform: scale(1.1);
+  border-color: #f1f1f1;
 }
 
 /* Nepoužité/rezervované, můžeš případně využít později */
@@ -141,4 +168,5 @@
   to {
     right: 20px;
   }
+  
 }
