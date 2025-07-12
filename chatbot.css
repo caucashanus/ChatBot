@@ -146,26 +146,18 @@
 
 /* Specifické styly pro každý typ */
 
-.gif-oval {
-  width: 120px;
-  height: auto;
-  border-radius: 10px;
-  border: 2px solid green;
-}
-
-.gif-kulaty {
-  width: 120px;
-  height: auto;
-  border-radius: 10px;
-  border: 2px solid red;
-}
-
+.gif-oval,
+.gif-kulaty,
 .gif-hranaty {
   width: 120px;
   height: auto;
   border-radius: 10px;
-  border: 2px solid blue;
+  cursor: pointer;
+  z-index: 9999;
+  display: block;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
+
 
 /* Responzivní změna uspořádání na mobilu */
 @media (max-width: 600px) {
