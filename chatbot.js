@@ -113,14 +113,18 @@ document.addEventListener("DOMContentLoaded", function () {
     wrapper.style.display = "flex";
     wrapper.style.gap = "20px";
 
-    ["oval.gif", "kulaty.gif", "hranaty.gif"].forEach((src, i) => {
+    const faceShapes = [
+      { src: "oval.gif", class: "gif-oval" },
+      { src: "kulaty.gif", class: "gif-kulaty" },
+      { src: "hranaty.gif", class: "gif-hranaty" }
+    ];
+
+    faceShapes.forEach(({ src, class: className }) => {
       const img = document.createElement("img");
-      img.src = "./" + src;
+      img.src = src;
       img.dataset.faceShape = src.split(".")[0];
+      img.classList.add("face-gif", className);
       img.style.cursor = "pointer";
-      img.style.maxWidth = "100px";
-      img.style.height = "auto";
-      img.classList.add("face-gif");
       wrapper.appendChild(img);
     });
 
@@ -216,4 +220,3 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
-
