@@ -114,19 +114,31 @@ document.addEventListener("DOMContentLoaded", function () {
     wrapper.style.gap = "20px";
 
     const faceShapes = [
-  { src: "https://rb-chat-bot.netlify.app/oval.gif", class: "gif-oval" },
-  { src: "https://rb-chat-bot.netlify.app/kulaty.gif", class: "gif-kulaty" },
-  { src: "https://rb-chat-bot.netlify.app/hranaty.gif", class: "gif-hranaty" }
-];
-
+      { src: "oval.gif", class: "gif-oval" },
+      { src: "kulaty.gif", class: "gif-kulaty" },
+      { src: "hranaty.gif", class: "gif-hranaty" }
+    ];
 
     faceShapes.forEach(({ src, class: className }) => {
+      const container = document.createElement("div"); // ← CHYBĚLO
+  container.style.textAlign = "center";
+      
       const img = document.createElement("img");
       img.src = src;
       img.dataset.faceShape = src.split(".")[0];
       img.classList.add("face-gif", className);
       img.style.cursor = "pointer";
-      wrapper.appendChild(img);
+
+       const label = document.createElement("div");
+      label.textContent = src.split(".")[0].toUpperCase(); // Např. OVAL
+      label.style.color = "#fff";
+      label.style.marginTop = "8px";
+      label.style.fontWeight = "bold";
+      label.style.fontSize = "14px";
+
+      container.appendChild(img);
+      container.appendChild(label);
+      wrapper.appendChild(container);
     });
 
     overlay.appendChild(wrapper);
