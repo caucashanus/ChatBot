@@ -105,10 +105,16 @@ document.addEventListener("DOMContentLoaded", function () {
     overlay.style.display = "flex";
     overlay.style.alignItems = "center";
     overlay.style.justifyContent = "center";
+    overlay.style.padding = "20px";
+    overlay.style.boxSizing = "border-box";
 
     const wrapper = document.createElement("div");
     wrapper.style.display = "flex";
+    wrapper.style.flexDirection = "row";
+    wrapper.style.flexWrap = "wrap";
+    wrapper.style.justifyContent = "center";
     wrapper.style.gap = "20px";
+    wrapper.style.maxWidth = "100%";
 
     const faceShapes = [
       { src: "https://rb-chat-bot.netlify.app/oval.gif", class: "gif-oval", label: "Oválný" },
@@ -119,12 +125,14 @@ document.addEventListener("DOMContentLoaded", function () {
     faceShapes.forEach(({ src, class: className, label: labelText }) => {
       const container = document.createElement("div");
       container.style.textAlign = "center";
+      container.style.width = "100px";
 
       const img = document.createElement("img");
       img.src = src;
       img.dataset.faceShape = labelText.toLowerCase();
       img.classList.add("face-gif", className);
       img.style.cursor = "pointer";
+      img.style.width = "100%";
 
       const label = document.createElement("div");
       label.textContent = labelText;
@@ -196,7 +204,8 @@ document.addEventListener("DOMContentLoaded", function () {
     selected.forEach(({ src, url, label }) => {
       const container = document.createElement("div");
       container.style.textAlign = "center";
-      container.style.width = "45%";
+      container.style.width = "calc(50% - 20px)";
+      container.style.boxSizing = "border-box";
 
       const a = document.createElement("a");
       a.href = url;
