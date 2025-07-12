@@ -113,11 +113,11 @@ document.addEventListener("DOMContentLoaded", function () {
     wrapper.style.display = "flex";
     wrapper.style.gap = "20px";
 
-    const faceShapes = [
-      { src: "oval.gif", class: "gif-oval" },
-      { src: "kulaty.gif", class: "gif-kulaty" },
-      { src: "hranaty.gif", class: "gif-hranaty" }
-    ];
+  const faceShapes = [
+  { src: "https://rb-chat-bot.netlify.app/oval.gif", class: "gif-oval" },
+  { src: "https://rb-chat-bot.netlify.app/kulaty.gif", class: "gif-kulaty" },
+  { src: "https://rb-chat-bot.netlify.app/hranaty.gif", class: "gif-hranaty" }
+];
 
     faceShapes.forEach(({ src, class: className }) => {
       const container = document.createElement("div"); // ← CHYBĚLO
