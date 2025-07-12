@@ -204,7 +204,7 @@ document.addEventListener("DOMContentLoaded", function () {
     selected.forEach(({ src, url, label }) => {
       const container = document.createElement("div");
       container.style.textAlign = "center";
-      container.style.width = "calc(50% - 20px)";
+      container.style.width = "150px";
       container.style.boxSizing = "border-box";
 
       const a = document.createElement("a");
