@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     ["oval.gif", "kulaty.gif", "hranaty.gif"].forEach((src, i) => {
       const img = document.createElement("img");
-      img.src = src;
+      img.src = "./" + src;
       img.dataset.faceShape = src.split(".")[0];
       img.style.cursor = "pointer";
       img.style.maxWidth = "100px";
