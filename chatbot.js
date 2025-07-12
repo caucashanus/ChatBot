@@ -32,7 +32,6 @@ document.addEventListener("DOMContentLoaded", function () {
     toggle.textContent = isVisible ? "💬" : "❌";
   });
 
-  // === MASKOT S CHOVÁNÍM ===
   setTimeout(() => {
     const maskot = document.createElement("img");
     maskot.src = "https://rb-chat-bot.netlify.app/anim.gif";
@@ -53,10 +52,8 @@ document.addEventListener("DOMContentLoaded", function () {
     };
   }, 3000);
 
-  // === JEDINÝ LISTENER NA OBSAH ===
   content.addEventListener("click", (e) => {
     const target = e.target;
-
     if (!target.classList.contains("chatbot-button")) return;
 
     if (target.id === "btn-rezervace") {
@@ -190,6 +187,7 @@ document.addEventListener("DOMContentLoaded", function () {
       ]
     };
 
+    wrapper.style.display = "flex";
     wrapper.style.flexWrap = "wrap";
     wrapper.style.justifyContent = "center";
     wrapper.style.gap = "20px";
