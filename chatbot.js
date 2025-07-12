@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
     } else if (target.id === "btn-uces") {
       renderUcesOptions();
     } else if (target.dataset.faceShape) {
-      showHairAdvice(target.dataset.faceShape);
+      renderHaircutSuggestions(target.dataset.faceShape);
     } else if (target.id === "back-to-start") {
       resetChat();
     } else if (target.id === "faq-button") {
@@ -157,26 +157,53 @@ document.addEventListener("DOMContentLoaded", function () {
 
     wrapper.querySelectorAll(".face-gif").forEach((gif) => {
       gif.addEventListener("click", () => {
-        overlay.remove();
-        showHairAdvice(gif.dataset.faceShape);
+        wrapper.innerHTML = "";
+        renderHaircutSuggestions(gif.dataset.faceShape, wrapper);
       });
     });
   }
 
-  function showHairAdvice(type) {
-    let message = "";
-    if (type === "oválný") {
-      message = "Máte ideální tvar obličeje – hodí se vám téměř každý střih. Doporučujeme fade nebo slick back.";
-    } else if (type === "kulatý") {
-      message = "Zkuste účesy, které prodlouží obličej – pompadour, high fade nebo undercut s objemem nahoře.";
-    } else if (type === "hranatý") {
-      message = "U hranatého obličeje skvěle fungují kratší boky a více textury nahoře – zkuste crop nebo quiff.";
-    }
+  function renderHaircutSuggestions(type, wrapper) {
+    const haircutSets = {
+      "oválný": [
+        { src: "buzzcut.jpg", url: "https://realbarber.cz/sluzby/buzz-cut/" },
+        { src: "fade.jpg", url: "https://realbarber.cz/sluzby/fade/" },
+        { src: "pompadour.jpg", url: "https://realbarber.cz/sluzby/pompadour/" },
+        { src: "quiff.jpg", url: "https://realbarber.cz/sluzby/quiff/" },
+        { src: "undercut.jpg", url: "https://realbarber.cz/sluzby/undercut/" },
+        { src: "classic.jpg", url: "https://realbarber.cz/sluzby/classic/" }
+      ],
+      "kulatý": [
+        { src: "textured.jpg", url: "https://realbarber.cz/sluzby/textured/" },
+        { src: "sidepart.jpg", url: "https://realbarber.cz/sluzby/side-part/" },
+        { src: "messy.jpg", url: "https://realbarber.cz/sluzby/messy/" },
+        { src: "spiky.jpg", url: "https://realbarber.cz/sluzby/spiky/" },
+        { src: "layered.jpg", url: "https://realbarber.cz/sluzby/layered/" },
+        { src: "angular.jpg", url: "https://realbarber.cz/sluzby/angular/" }
+      ],
+      "hranatý": [
+        { src: "soft.jpg", url: "https://realbarber.cz/sluzby/soft/" },
+        { src: "wavy.jpg", url: "https://realbarber.cz/sluzby/wavy/" },
+        { src: "curved.jpg", url: "https://realbarber.cz/sluzby/curved/" },
+        { src: "rounded.jpg", url: "https://realbarber.cz/sluzby/rounded/" },
+        { src: "flowing.jpg", url: "https://realbarber.cz/sluzby/flowing/" },
+        { src: "smooth.jpg", url: "https://realbarber.cz/sluzby/smooth/" }
+      ]
+    };
 
-    content.innerHTML = `
-      <p>${message}</p>
-      <button class="chatbot-button" id="back-to-start">↩️ Zpět na začátek</button>
-    `;
+    const selected = haircutSets[type];
+    selected.forEach(({ src, url }) => {
+      const a = document.createElement("a");
+      a.href = url;
+      a.target = "_blank";
+      const img = document.createElement("img");
+      img.src = src;
+      img.style.width = "100px";
+      img.style.borderRadius = "10px";
+      img.style.margin = "10px";
+      a.appendChild(img);
+      wrapper.appendChild(a);
+    });
   }
 
   function resetChat() {
@@ -233,3 +260,4 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+
