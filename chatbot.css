@@ -136,29 +136,27 @@
   transform: translateX(0);
   
 }
-
-/ Gify ukazujici tvary obliceje /
-
-.gif-oval {
-  width: 120px;
+/* CSS pro gify na tvary obliceje */
+.face-gif {
+  max-width: 120px;
   height: auto;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Specifické styly pro každý typ */
+.gif-oval {
+  /* např. border: 2px solid green; */
 }
 
 .gif-kulaty {
-  width: 120px;
-  height: auto;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  /* např. border: 2px solid blue; */
 }
 
 .gif-hranaty {
-  width: 120px;
-  height: auto;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  /* např. border: 2px solid red; */
 }
+
 
 /* Nepoužité/rezervované, můžeš případně využít později */
 @keyframes slideIn {
