@@ -186,14 +186,19 @@ document.addEventListener("DOMContentLoaded", function () {
         { src: "https://rb-chat-bot.netlify.app/wavytop.jpg", url: "https://realbarber.cz/sluzby/wavy-top-s-taper-fadem/", label: "Wavy Top" },
         { src: "https://rb-chat-bot.netlify.app/fluffy.jpg", url: "https://realbarber.cz/sluzby/fluffy-uces/", label: "Fluffy účes" },
         { src: "https://rb-chat-bot.netlify.app/pushedback.jpg", url: "https://realbarber.cz/sluzby/pushed-back/", label: "Pushed Back" },
-        { src: "https://rb-chat-bot.netlify.app/vlasydopredu.jpg", url: "https://realbarber.cz/sluzby/rozcuchane-vlasy-dopredu/", label: "Rozcuchané vlasy" },
+        { src: "https://rb-chat-bot.netlify.app/vlasydopredu.jpg", url: "https://realbarber.cz/sluzby/rozcuchane-vlasy-dopredu/", label: "Rozcuchané vlasy" }
       ]
     };
+
+    wrapper.style.flexWrap = "wrap";
+    wrapper.style.justifyContent = "center";
+    wrapper.style.gap = "20px";
 
     const selected = haircutSets[type];
     selected.forEach(({ src, url, label }) => {
       const container = document.createElement("div");
       container.style.textAlign = "center";
+      container.style.width = "45%";
 
       const a = document.createElement("a");
       a.href = url;
@@ -201,16 +206,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const img = document.createElement("img");
       img.src = src;
-      img.style.width = "100px";
+      img.style.width = "100%";
       img.style.borderRadius = "10px";
-      img.style.margin = "10px";
+      img.style.marginBottom = "5px";
       img.style.display = "block";
       a.appendChild(img);
 
       const caption = document.createElement("div");
       caption.textContent = label;
       caption.style.color = "#fff";
-      caption.style.marginTop = "5px";
       caption.style.fontSize = "14px";
       caption.style.fontWeight = "bold";
 
