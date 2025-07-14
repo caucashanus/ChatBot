@@ -237,6 +237,43 @@ document.addEventListener("DOMContentLoaded", function () {
       container.appendChild(caption);
       wrapper.appendChild(container);
     });
+
+    // Přidání horní lišty s tlačítky (X a Info)
+    const topBar = document.createElement('div');
+    topBar.style.position = 'absolute';
+    topBar.style.top = '20px';
+    topBar.style.right = '30px';
+    topBar.style.display = 'flex';
+    topBar.style.gap = '10px';
+    topBar.style.zIndex = '10001';
+
+    // Zavírací tlačítko
+    const closeBtn = document.createElement('button');
+    closeBtn.innerHTML = '×';
+    closeBtn.title = 'Zavřít';
+    closeBtn.className = 'face-overlay-close-btn';
+    closeBtn.onclick = () => {
+      // Najdi a odstraň overlay
+      const overlay = document.getElementById('face-overlay');
+      if (overlay) overlay.remove();
+    };
+    topBar.appendChild(closeBtn);
+
+    // Info tlačítko
+    const infoBtn = document.createElement('button');
+    infoBtn.innerHTML = 'ℹ️ Info';
+    infoBtn.title = 'Zobrazit informace';
+    infoBtn.className = 'face-overlay-info-btn';
+    infoBtn.onclick = (e) => {
+      e.stopPropagation();
+      showFaceInfoModal();
+    };
+    topBar.appendChild(infoBtn);
+
+    // Přidej topBar do wrapper.parentNode (tedy do overlayu)
+    if (wrapper.parentNode) {
+      wrapper.parentNode.appendChild(topBar);
+    }
   }
 
   function resetChat() {
@@ -294,7 +331,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Funkce pro zobrazení info modalu
-  function showFaceInfoModal(faceType) {
+  function showFaceInfoModal() {
     const infoOverlay = document.createElement('div');
     infoOverlay.className = 'face-info-overlay';
     infoOverlay.style.position = 'fixed';
