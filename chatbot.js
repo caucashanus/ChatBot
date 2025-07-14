@@ -715,26 +715,25 @@ document.addEventListener("DOMContentLoaded", function () {
     content.appendChild(odpoved);
     content.scrollTop = content.scrollHeight;
 
-    // Stáhni články a stránky z WordPressu
-    let posts = [];
+    // Stáhni všechny stránky z WordPressu
     let pages = [];
     try {
-      const [postsRes, pagesRes] = await Promise.all([
-        fetch('https://realbarber.cz/wp-json/wp/v2/posts?per_page=100'),
-        fetch('https://realbarber.cz/wp-json/wp/v2/pages?per_page=100')
-      ]);
-      posts = await postsRes.json();
+      const pagesRes = await fetch('https://realbarber.cz/wp-json/wp/v2/pages?per_page=100');
       pages = await pagesRes.json();
     } catch (e) {
       odpoved.textContent = 'Chyba při načítání dat.';
       return;
     }
-    // Spojíme články a stránky
-    const all = [...posts, ...pages];
-    // Najdi relevantní článek/stránku (titulek nebo obsah)
-    const nalezeny = all.find(post =>
-      (post.title && post.title.rendered && post.title.rendered.toLowerCase().includes(dotaz.toLowerCase())) ||
-      (post.content && post.content.rendered && post.content.rendered.toLowerCase().includes(dotaz.toLowerCase()))
+    // Filtrovat pouze stránky pod /sluzby/, /tym/ a /blog/
+    const relevantPages = pages.filter(page =>
+      page.link.startsWith('https://www.realbarber.cz/sluzby/') ||
+      page.link.startsWith('https://www.realbarber.cz/tym/') ||
+      page.link.startsWith('https://www.realbarber.cz/blog/')
+    );
+    // Najdi relevantní stránku (titulek nebo obsah)
+    const nalezeny = relevantPages.find(page =>
+      (page.title && page.title.rendered && page.title.rendered.toLowerCase().includes(dotaz.toLowerCase())) ||
+      (page.content && page.content.rendered && page.content.rendered.toLowerCase().includes(dotaz.toLowerCase()))
     );
     if (nalezeny) {
       // Vytvoř shrnutí (prvních 200 znaků bez HTML)
