@@ -198,6 +198,16 @@ document.addEventListener("DOMContentLoaded", function () {
     wrapper.style.justifyContent = "center";
     wrapper.style.gap = "20px";
 
+    // Vyčisti wrapper a přidej nadpis
+    wrapper.innerHTML = '';
+    const heading = document.createElement('h2');
+    heading.textContent = 'Inspirace účesů pro váš tvar obličeje';
+    heading.style.color = '#fff';
+    heading.style.textAlign = 'center';
+    heading.style.width = '100%';
+    heading.style.marginBottom = '18px';
+    wrapper.appendChild(heading);
+
     const selected = haircutSets[type];
     selected.forEach(({ src, url, label }) => {
       const container = document.createElement("div");
