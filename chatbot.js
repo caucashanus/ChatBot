@@ -32,25 +32,39 @@ document.addEventListener("DOMContentLoaded", function () {
     toggle.textContent = isVisible ? "💬" : "❌";
   });
 
+  // Přidám vstupní gif ihned po načtení stránky
+  const vstupniGif = document.createElement("img");
+  vstupniGif.src = "vstupnigif.gif";
+  vstupniGif.className = "chatbot-maskot show";
+  vstupniGif.id = "vstupni-gif";
+  document.body.appendChild(vstupniGif);
+
+  // Po 5 sekundách odstraním vstupní gif a zobrazím anim.gif
   setTimeout(() => {
-    const maskot = document.createElement("img");
-    maskot.src = "https://rb-chat-bot.netlify.app/anim.gif";
-    maskot.className = "chatbot-maskot show";
-    maskot.id = "chatbot-maskot";
-    document.body.appendChild(maskot);
+    vstupniGif.classList.remove("show");
+    vstupniGif.classList.add("hide");
+    setTimeout(() => {
+      vstupniGif.remove();
+      // Zobrazím anim.gif (původní maskot)
+      const maskot = document.createElement("img");
+      maskot.src = "anim.gif";
+      maskot.className = "chatbot-maskot show";
+      maskot.id = "chatbot-maskot";
+      document.body.appendChild(maskot);
 
-    maskot.onclick = () => {
-      maskot.classList.remove("show");
-      maskot.classList.add("hide");
+      maskot.onclick = () => {
+        maskot.classList.remove("show");
+        maskot.classList.add("hide");
 
-      setTimeout(() => {
-        maskot.remove();
-        toggle.style.display = "block";
-        box.style.display = "block";
-        toggle.textContent = "❌";
-      }, 500);
-    };
-  }, 3000);
+        setTimeout(() => {
+          maskot.remove();
+          toggle.style.display = "block";
+          box.style.display = "block";
+          toggle.textContent = "❌";
+        }, 500);
+      };
+    }, 500); // Krátké zpoždění pro plynulý přechod
+  }, 5000);
 
   content.addEventListener("click", (e) => {
     const target = e.target;
