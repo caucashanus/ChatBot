@@ -198,15 +198,39 @@ document.addEventListener("DOMContentLoaded", function () {
     wrapper.style.justifyContent = "center";
     wrapper.style.gap = "20px";
 
-    // Vyčisti wrapper a přidej nadpis
+    // Odstraním nadpis a místo něj přidám topBar s tlačítky X a Info centrovaně nad obrázky
     wrapper.innerHTML = '';
-    const heading = document.createElement('h2');
-    heading.textContent = 'Inspirace účesů pro váš tvar obličeje';
-    heading.style.color = '#fff';
-    heading.style.textAlign = 'center';
-    heading.style.width = '100%';
-    heading.style.marginBottom = '18px';
-    wrapper.appendChild(heading);
+    const topBar = document.createElement('div');
+    topBar.style.display = 'flex';
+    topBar.style.justifyContent = 'center';
+    topBar.style.alignItems = 'center';
+    topBar.style.gap = '10px';
+    topBar.style.marginBottom = '18px';
+    topBar.style.width = '100%';
+
+    // Zavírací tlačítko
+    const closeBtn = document.createElement('button');
+    closeBtn.innerHTML = '×';
+    closeBtn.title = 'Zavřít';
+    closeBtn.className = 'face-overlay-close-btn';
+    closeBtn.onclick = () => {
+      const overlay = document.getElementById('face-overlay');
+      if (overlay) overlay.remove();
+    };
+    topBar.appendChild(closeBtn);
+
+    // Info tlačítko
+    const infoBtn = document.createElement('button');
+    infoBtn.innerHTML = '<span style="color:#fff;font-weight:bold;font-size:18px;">i</span> Info';
+    infoBtn.title = 'Zobrazit informace';
+    infoBtn.className = 'face-overlay-info-btn';
+    infoBtn.onclick = (e) => {
+      e.stopPropagation();
+      showFaceInfoModal();
+    };
+    topBar.appendChild(infoBtn);
+
+    wrapper.appendChild(topBar);
 
     const selected = haircutSets[type];
     selected.forEach(({ src, url, label }) => {
@@ -239,41 +263,39 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Přidání horní lišty s tlačítky (X a Info)
-    const topBar = document.createElement('div');
-    topBar.style.position = 'absolute';
-    topBar.style.top = '20px';
-    topBar.style.right = '30px';
-    topBar.style.display = 'flex';
-    topBar.style.gap = '10px';
-    topBar.style.zIndex = '10001';
+    // const topBar = document.createElement('div'); // This line is removed as per the new_code
+    // topBar.style.position = 'absolute'; // This line is removed as per the new_code
+    // topBar.style.top = '20px'; // This line is removed as per the new_code
+    // topBar.style.right = '30px'; // This line is removed as per the new_code
+    // topBar.style.display = 'flex'; // This line is removed as per the new_code
+    // topBar.style.gap = '10px'; // This line is removed as per the new_code
+    // topBar.style.zIndex = '10001'; // This line is removed as per the new_code
 
-    // Zavírací tlačítko
-    const closeBtn = document.createElement('button');
-    closeBtn.innerHTML = '×';
-    closeBtn.title = 'Zavřít';
-    closeBtn.className = 'face-overlay-close-btn';
-    closeBtn.onclick = () => {
-      // Najdi a odstraň overlay
-      const overlay = document.getElementById('face-overlay');
-      if (overlay) overlay.remove();
-    };
-    topBar.appendChild(closeBtn);
+    // // Zavírací tlačítko // This block is removed as per the new_code
+    // const closeBtn = document.createElement('button'); // This line is removed as per the new_code
+    // closeBtn.innerHTML = '×'; // This line is removed as per the new_code
+    // closeBtn.title = 'Zavřít'; // This line is removed as per the new_code
+    // closeBtn.className = 'face-overlay-close-btn'; // This line is removed as per the new_code
+    // closeBtn.onclick = () => { // This line is removed as per the new_code
+    //   // Najdi a odstraň overlay // This line is removed as per the new_code
+    //   const overlay = document.getElementById('face-overlay'); // This line is removed as per the new_code
+    //   if (overlay) overlay.remove(); // This line is removed as per the new_code
+    // }; // This line is removed as per the new_code
 
-    // Info tlačítko
-    const infoBtn = document.createElement('button');
-    infoBtn.innerHTML = 'ℹ️ Info';
-    infoBtn.title = 'Zobrazit informace';
-    infoBtn.className = 'face-overlay-info-btn';
-    infoBtn.onclick = (e) => {
-      e.stopPropagation();
-      showFaceInfoModal();
-    };
-    topBar.appendChild(infoBtn);
+    // // Info tlačítko // This block is removed as per the new_code
+    // const infoBtn = document.createElement('button'); // This line is removed as per the new_code
+    // infoBtn.innerHTML = '<span style="color:#fff;font-weight:bold;font-size:18px;">i</span> Info'; // This line is removed as per the new_code
+    // infoBtn.title = 'Zobrazit informace'; // This line is removed as per the new_code
+    // infoBtn.className = 'face-overlay-info-btn'; // This line is removed as per the new_code
+    // infoBtn.onclick = (e) => { // This line is removed as per the new_code
+    //   e.stopPropagation(); // This line is removed as per the new_code
+    //   showFaceInfoModal(); // This line is removed as per the new_code
+    // }; // This line is removed as per the new_code
 
-    // Přidej topBar do wrapper.parentNode (tedy do overlayu)
-    if (wrapper.parentNode) {
-      wrapper.parentNode.appendChild(topBar);
-    }
+    // // Přidej topBar do wrapper.parentNode (tedy do overlayu) // This line is removed as per the new_code
+    // if (wrapper.parentNode) { // This line is removed as per the new_code
+    //   wrapper.parentNode.appendChild(topBar); // This line is removed as per the new_code
+    // } // This line is removed as per the new_code
   }
 
   function resetChat() {
@@ -385,8 +407,8 @@ document.addEventListener("DOMContentLoaded", function () {
     katalogBtn.style.marginTop = '20px';
     katalogBtn.style.width = '100%';
     katalogBtn.style.padding = '12px';
-    katalogBtn.style.background = '#1A1A1A';
-    katalogBtn.style.color = '#fff';
+    katalogBtn.style.background = '#F1F1F1';
+    katalogBtn.style.color = '#0F0F0F';
     katalogBtn.style.border = 'none';
     katalogBtn.style.borderRadius = '6px';
     katalogBtn.style.fontSize = '16px';
