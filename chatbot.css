@@ -40,11 +40,11 @@
   pointer-events: none;
 }
 
-/* Tohle bude fungovat jen na mobilnĂ­ch zaĹĂ­zenĂ­ch (do 600px) */
+/* Tohle bude fungovat jen na mobilních zařízeních (do 600px) */
 @media (max-width: 600px) {
   #chatbot-maskot {
-    bottom: 120px; /* posuĹ ho vĂ˝ĹĄ pokud pĹekrĂ˝vĂĄ tlaÄĂ­tka */
-    width: 90px;    /* zmenĹĄi ho pro mobil */
+    bottom: 120px; /* posuň ho výš pokud překrývá tlačítka */
+    width: 90px;    /* zmenši ho pro mobil */
     right: 15px;
   }
 
@@ -144,7 +144,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 
-/* SpecifickĂŠ styly pro kaĹždĂ˝ typ */
+/* Specifické styly pro každý typ */
 
 .gif-oval,
 .gif-kulaty,
@@ -159,7 +159,7 @@
 }
 
 
-/* ResponzivnĂ­ zmÄna uspoĹĂĄdĂĄnĂ­ na mobilu */
+/* Responzivní změna uspořádání na mobilu */
 @media (max-width: 600px) {
   #face-overlay > div {
     flex-direction: column;
@@ -176,10 +176,89 @@
 
 
 
-/* NepouĹžitĂŠ/rezervovanĂŠ, mĹŻĹžeĹĄ pĹĂ­padnÄ vyuĹžĂ­t pozdÄji */
+/* Nepoužité/rezervované, můžeš případně využít později */
 @keyframes slideIn {
   to {
     right: 20px;
   }
   
+}
+
+/* Overlay horní lišta s tlačítky */
+.face-overlay-close-btn, .face-overlay-info-btn {
+  background: #232323;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  transition: background 0.2s;
+}
+.face-overlay-close-btn:hover, .face-overlay-info-btn:hover {
+  background: #444;
+}
+
+/* Info modal overlay */
+.face-info-overlay {
+  z-index: 11000 !important;
+}
+.face-info-box {
+  background: #181818;
+  color: #fff;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 100%;
+  padding: 30px 20px 20px 20px;
+  position: relative;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.5);
+  text-align: left;
+}
+.face-info-close-btn {
+  background: #232323;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 18px;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  transition: background 0.2s;
+}
+.face-info-close-btn:hover {
+  background: #444;
+}
+.face-info-katalog-btn {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+  background: #1A1A1A;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.face-info-katalog-btn:hover {
+  background: #333;
+}
+
+@media (max-width: 600px) {
+  .face-info-box {
+    max-width: 95vw;
+    padding: 18px 6vw 18px 6vw;
+    font-size: 15px;
+  }
+  .face-overlay-close-btn, .face-overlay-info-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 17px;
+  }
 }
