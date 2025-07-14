@@ -658,4 +658,100 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
+
+  // Přidám input pole a tlačítko pro dotaz uživatele
+  const userInputWrapper = document.createElement('div');
+  userInputWrapper.style.display = 'flex';
+  userInputWrapper.style.gap = '8px';
+  userInputWrapper.style.marginTop = '16px';
+
+  const userInput = document.createElement('input');
+  userInput.type = 'text';
+  userInput.placeholder = 'Zeptejte se na cokoliv...';
+  userInput.id = 'chatbot-user-input';
+  userInput.style.flex = '1';
+  userInput.style.padding = '8px';
+  userInput.style.borderRadius = '6px';
+  userInput.style.border = '1px solid #444';
+  userInput.style.background = '#181818';
+  userInput.style.color = '#fff';
+
+  const sendBtn = document.createElement('button');
+  sendBtn.textContent = 'Odeslat';
+  sendBtn.id = 'chatbot-send-btn';
+  sendBtn.style.padding = '8px 16px';
+  sendBtn.style.borderRadius = '6px';
+  sendBtn.style.border = 'none';
+  sendBtn.style.background = '#1A1A1A';
+  sendBtn.style.color = '#F1F1F1';
+  sendBtn.style.cursor = 'pointer';
+  sendBtn.style.fontWeight = 'bold';
+
+  userInputWrapper.appendChild(userInput);
+  userInputWrapper.appendChild(sendBtn);
+  content.appendChild(userInputWrapper);
+
+  // Funkce pro zpracování dotazu
+  async function processUserQuery() {
+    const dotaz = userInput.value.trim();
+    if (!dotaz) return;
+    userInput.value = '';
+
+    // Zobraz dotaz uživatele v chatu
+    const userMsg = document.createElement('div');
+    userMsg.className = 'chatbot-user-msg';
+    userMsg.style.margin = '12px 0 4px 0';
+    userMsg.style.textAlign = 'right';
+    userMsg.style.color = '#F1F1F1';
+    userMsg.textContent = dotaz;
+    content.appendChild(userMsg);
+
+    // Zobraz loading
+    const odpoved = document.createElement('div');
+    odpoved.className = 'chatbot-answer';
+    odpoved.style.margin = '4px 0 16px 0';
+    odpoved.style.color = '#F1F1F1';
+    odpoved.textContent = 'Hledám odpověď...';
+    content.appendChild(odpoved);
+    content.scrollTop = content.scrollHeight;
+
+    // Stáhni články a stránky z WordPressu
+    let posts = [];
+    let pages = [];
+    try {
+      const [postsRes, pagesRes] = await Promise.all([
+        fetch('https://realbarber.cz/wp-json/wp/v2/posts?per_page=100'),
+        fetch('https://realbarber.cz/wp-json/wp/v2/pages?per_page=100')
+      ]);
+      posts = await postsRes.json();
+      pages = await pagesRes.json();
+    } catch (e) {
+      odpoved.textContent = 'Chyba při načítání dat.';
+      return;
+    }
+    // Spojíme články a stránky
+    const all = [...posts, ...pages];
+    // Najdi relevantní článek/stránku (titulek nebo obsah)
+    const nalezeny = all.find(post =>
+      (post.title && post.title.rendered && post.title.rendered.toLowerCase().includes(dotaz.toLowerCase())) ||
+      (post.content && post.content.rendered && post.content.rendered.toLowerCase().includes(dotaz.toLowerCase()))
+    );
+    if (nalezeny) {
+      // Vytvoř shrnutí (prvních 200 znaků bez HTML)
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = nalezeny.content.rendered || '';
+      const plainText = tempDiv.textContent || tempDiv.innerText || '';
+      const shrnuti = plainText.length > 200 ? plainText.slice(0, 200) + '…' : plainText;
+      odpoved.innerHTML = `<strong>${nalezeny.title.rendered}</strong><br>${shrnuti}<br><a href="${nalezeny.link}" target="_blank" style="color:#F1F1F1;text-decoration:underline;">Celý článek</a>`;
+    } else {
+      odpoved.textContent = 'Na tuto otázku nemám odpověď.';
+    }
+    content.scrollTop = content.scrollHeight;
+  }
+
+  // Odeslání dotazu klikem nebo Enterem
+  sendBtn.onclick = processUserQuery;
+  userInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') processUserQuery();
+  });
 });
