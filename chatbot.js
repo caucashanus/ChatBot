@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (target.id === "btn-rezervace") {
       renderRezervace();
     } else if (target.id === "btn-cenik") {
-      window.location.href = 'https://realbarber.cz/cenik/';
+      showCenikInfoModal();
     } else if (target.id === "btn-uces") {
       renderUcesOptions();
     } else if (target.dataset.faceShape) {
@@ -221,7 +221,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Info tlačítko
     const infoBtn = document.createElement('button');
-    infoBtn.innerHTML = '<span style="color:#fff;font-weight:bold;font-size:18px;">i</span> Info';
+    infoBtn.innerHTML = '<span style="color:#fff;font-weight:bold;font-size:18px;">i</span>';
     infoBtn.title = 'Zobrazit informace';
     infoBtn.className = 'face-overlay-info-btn';
     infoBtn.onclick = (e) => {
@@ -418,6 +418,232 @@ document.addEventListener("DOMContentLoaded", function () {
 
     infoOverlay.appendChild(infoBox);
     document.body.appendChild(infoOverlay);
+
+    // Zavření ESC
+    document.addEventListener('keydown', function escInfoHandler(e) {
+      if (e.key === 'Escape') {
+        infoOverlay.remove();
+        document.removeEventListener('keydown', escInfoHandler);
+      }
+    });
+  }
+
+  // Funkce pro zobrazení ceníkového info baru
+  function showCenikInfoModal() {
+    const infoOverlay = document.createElement('div');
+    infoOverlay.className = 'face-info-overlay';
+    infoOverlay.style.position = 'fixed';
+    infoOverlay.style.top = '0';
+    infoOverlay.style.left = '0';
+    infoOverlay.style.width = '100vw';
+    infoOverlay.style.height = '100vh';
+    infoOverlay.style.backgroundColor = 'rgba(0,0,0,0.92)';
+    infoOverlay.style.zIndex = '11000';
+    infoOverlay.style.display = 'flex';
+    infoOverlay.style.alignItems = 'center';
+    infoOverlay.style.justifyContent = 'center';
+    infoOverlay.style.padding = '20px';
+    infoOverlay.style.boxSizing = 'border-box';
+
+    const infoBox = document.createElement('div');
+    infoBox.className = 'face-info-box cenik-info-box';
+    infoBox.style.background = '#181818';
+    infoBox.style.color = '#fff';
+    infoBox.style.borderRadius = '12px';
+    infoBox.style.maxWidth = '700px';
+    infoBox.style.width = '100%';
+    infoBox.style.padding = '30px 20px 20px 20px';
+    infoBox.style.position = 'relative';
+    infoBox.style.boxShadow = '0 4px 32px rgba(0,0,0,0.5)';
+    infoBox.style.textAlign = 'left';
+    infoBox.style.overflowY = 'auto';
+    infoBox.style.maxHeight = '90vh';
+
+    // Zavírací tlačítko pro info box
+    const infoClose = document.createElement('button');
+    infoClose.innerHTML = '×';
+    infoClose.title = 'Zavřít';
+    infoClose.className = 'face-info-close-btn';
+    infoClose.style.position = 'absolute';
+    infoClose.style.top = '10px';
+    infoClose.style.right = '15px';
+    infoClose.onclick = () => infoOverlay.remove();
+    infoBox.appendChild(infoClose);
+
+    // HTML ceníku (zjednodušeně, pro modal)
+    infoBox.innerHTML += `
+      <div class="selector-container">
+        <div class="selector">
+          <label>Vyberte pobočku:</label>
+          <button class="branch-kacerov" id="cenik-kacerov">RB Kačerov</button>
+          <button class="branch-modrany" id="cenik-modrany">RB Modřany</button>
+          <button class="branch-strasnice" id="cenik-strasnice">RB Strašnice</button>
+        </div>
+        <div class="selector">
+          <label>Vyberte úroveň holiče:</label>
+          <button id="cenik-junior">Junior</button>
+          <button id="cenik-senior">Senior</button>
+          <button id="cenik-real">Real</button>
+        </div>
+        <div class="selector" id="cenik-beauty-selector">
+          <label>Chcete něco z RB beauty? <span class="tooltip-icon">i<div class="tooltip">Služby z kategorie RB beauty jsou momentálně dostupné pouze na pobočce Kačerov.</div></span></label>
+          <button id="cenik-yes">Ano</button>
+          <button id="cenik-no">Ne</button>
+        </div>
+      </div>
+      <table class="pricing-table">
+        <thead><tr><th>Služba</th><th class="price-header">Cena</th></tr></thead>
+        <tbody>
+          <tr><td>Vlasy + vousy</td><td class="price" data-kacerov-junior="1000" data-kacerov-senior="1150" data-kacerov-real="1390" data-modrany-junior="1000" data-modrany-senior="1150" data-modrany-real="1390" data-strasnice-junior="1000" data-strasnice-senior="1150" data-strasnice-real="1390">1000 Kč</td></tr>
+          <tr><td>Vlasy</td><td class="price" data-kacerov-junior="590" data-kacerov-senior="650" data-kacerov-real="790" data-modrany-junior="590" data-modrany-senior="650" data-modrany-real="790" data-strasnice-junior="590" data-strasnice-senior="650" data-strasnice-real="790">590 Kč</td></tr>
+          <tr><td>Vousy</td><td class="price" data-kacerov-junior="490" data-kacerov-senior="550" data-kacerov-real="650" data-modrany-junior="490" data-modrany-senior="550" data-modrany-real="650" data-strasnice-junior="490" data-strasnice-senior="550" data-strasnice-real="650">490 Kč</td></tr>
+          <tr><td>Vlasy do 12 let</td><td class="price" data-kacerov-junior="500" data-kacerov-senior="550" data-kacerov-real="690" data-modrany-junior="500" data-modrany-senior="550" data-modrany-real="690" data-strasnice-junior="500" data-strasnice-senior="550" data-strasnice-real="690">500 Kč</td></tr>
+          <tr><td>Rychlé stříhání vlasů</td><td class="price" data-kacerov-junior="490" data-kacerov-senior="590" data-kacerov-real="650" data-modrany-junior="490" data-modrany-senior="590" data-modrany-real="650" data-strasnice-junior="490" data-strasnice-senior="590" data-strasnice-real="650">490 Kč</td></tr>
+        </tbody>
+      </table>
+      <table class="pricing-table" id="cenik-beauty-pricing">
+        <thead><tr><th>RB beauty</th><th class="price-header">Cena</th></tr></thead>
+        <tbody>
+          <tr><td>Kosmetika</td><td class="price">750 Kč</td></tr>
+          <tr><td>Masáž celého těla</td><td class="price">990 Kč</td></tr>
+          <tr><td>Antistresová masáž</td><td class="price">590 Kč</td></tr>
+          <tr><td>Masáž šíje a rukou</td><td class="price">590 Kč</td></tr>
+          <tr><td>Masáž celých zad</td><td class="price">590 Kč</td></tr>
+          <tr><td>Masáž obličeje</td><td class="price">490 Kč</td></tr>
+          <tr><td>Masáž 60minut</td><td class="price">990 Kč</td></tr>
+          <tr><td>Masáž 85minut</td><td class="price">1290 Kč</td></tr>
+        </tbody>
+      </table>
+      <table class="pricing-table" id="cenik-additional-services">
+        <thead><tr><th>Doplňkové služby</th><th class="price-header">Cena</th></tr></thead>
+        <tbody>
+          <tr><td>Barvení vlasů <span class="tooltip-icon">i<div class="tooltip">Cena je pouze orientační, může být upravena podle techniky, délky a hustoty vlasů, či případných speciálních požadavků zákazníka. Pro detailní konzultaci přesnější cenu a rezervaci termínu nás prosím kontaktujte předem.</div></span></td><td class="price" data-kacerov-junior="2000" data-kacerov-senior="2500" data-kacerov-real="3000" data-modrany-junior="2000" data-modrany-senior="2500" data-modrany-real="3000" data-strasnice-junior="2000" data-strasnice-senior="2500" data-strasnice-real="3000">2000 Kč</td></tr>
+          <tr><td>Barvení vousů</td><td class="price" data-kacerov-junior="350" data-kacerov-senior="490" data-kacerov-real="550" data-modrany-junior="350" data-modrany-senior="490" data-modrany-real="550" data-strasnice-junior="350" data-strasnice-senior="490" data-strasnice-real="550">350 Kč</td></tr>
+          <tr><td>Epilace horkým voskem</td><td class="price" data-kacerov-junior="0" data-kacerov-senior="0" data-kacerov-real="0" data-modrany-junior="0" data-modrany-senior="0" data-modrany-real="0" data-strasnice-junior="0" data-strasnice-senior="0" data-strasnice-real="0">0</td></tr>
+        </tbody>
+      </table>
+      <table class="pricing-table" id="cenik-home-services">
+        <thead><tr><th>Služby k Vám domů <span class="tooltip-icon">i<div class="tooltip">Cestovné po Praze je již v ceně.</div></span></th><th class="price-header">Cena</th></tr></thead>
+        <tbody>
+          <tr><td>Vlasy + vousy</td><td class="price" data-kacerov-junior="2000" data-kacerov-senior="2000" data-kacerov-real="2000" data-modrany-junior="2000" data-modrany-senior="2000" data-modrany-real="2000" data-strasnice-junior="2000" data-strasnice-senior="2000" data-strasnice-real="1500">2000 Kč</td></tr>
+          <tr><td>Vlasy</td><td class="price" data-kacerov-junior="1500" data-kacerov-senior="1500" data-kacerov-real="1500" data-modrany-junior="1500" data-modrany-senior="1500" data-modrany-real="1500" data-strasnice-junior="1500" data-strasnice-senior="1500" data-strasnice-real="1500">1500 Kč</td></tr>
+          <tr><td>Vousy</td><td class="price" data-kacerov-junior="1000" data-kacerov-senior="1000" data-kacerov-real="1000" data-modrany-junior="1000" data-modrany-senior="1000" data-modrany-real="1000" data-strasnice-junior="1000" data-strasnice-senior="1000" data-strasnice-real="1000">1000 Kč</td></tr>
+        </tbody>
+      </table>
+      <table class="pricing-table" id="cenik-video-services">
+        <thead><tr><th>Video na míru</th><th class="price-header">Cena</th></tr></thead>
+        <tbody>
+          <tr><td>Video do 15 sekund</td><td class="price" data-kacerov-junior="1500" data-kacerov-senior="1500" data-kacerov-real="1500" data-modrany-junior="1500" data-modrany-senior="1500" data-modrany-real="1500" data-strasnice-junior="1500" data-strasnice-senior="1500" data-strasnice-real="1500">1500 Kč</td></tr>
+          <tr><td>Video do 30 sekund</td><td class="price" data-kacerov-junior="2200" data-kacerov-senior="2200" data-kacerov-real="2200" data-modrany-junior="2200" data-modrany-senior="2200" data-modrany-real="2200" data-strasnice-junior="2200" data-strasnice-senior="2200" data-strasnice-real="2200">2200 Kč</td></tr>
+          <tr><td>Video do 1 minuty</td><td class="price" data-kacerov-junior="3900" data-kacerov-senior="3900" data-kacerov-real="3900" data-modrany-junior="3900" data-modrany-senior="3900" data-modrany-real="3900" data-strasnice-junior="3900" data-strasnice-senior="3900" data-strasnice-real="3900">3900 Kč</td></tr>
+        </tbody>
+      </table>
+      <div class="selected-branch" id="cenik-selected-branch">Ceník platný na pobočce: RB Kačerov</div>
+      <div class="beauty-warning" id="cenik-beauty-warning">Služby z kategorie RB beauty jsou momentálně dostupné pouze na pobočce Kačerov</div>
+    `;
+
+    infoOverlay.appendChild(infoBox);
+    document.body.appendChild(infoOverlay);
+
+    // Logika ceníku v modalu
+    let selectedBranch = 'kacerov';
+    let selectedSpecialist = 'junior';
+    let beautySelected = 'yes';
+
+    function updatePrices() {
+      var prices = infoBox.querySelectorAll('.price');
+      prices.forEach(function(price) {
+        const dataAttr = `data-${selectedBranch}-${selectedSpecialist}`;
+        if (price.hasAttribute(dataAttr)) {
+          price.textContent = price.getAttribute(dataAttr) + ' Kč';
+        }
+      });
+    }
+    function updateSelectedBranch() {
+      const branchNames = {
+        'kacerov': 'RB Kačerov',
+        'modrany': 'RB Modřany',
+        'strasnice': 'RB Strašnice'
+      };
+      infoBox.querySelector('#cenik-selected-branch').textContent = 'Ceník platný na pobočce: ' + branchNames[selectedBranch];
+    }
+    function updateBeautyVisibility() {
+      const isBeautyVisible = selectedBranch === 'kacerov' && beautySelected === 'yes';
+      infoBox.querySelector('#cenik-beauty-pricing').style.display = isBeautyVisible ? '' : 'none';
+      infoBox.querySelector('#cenik-beauty-warning').style.display = isBeautyVisible ? '' : 'none';
+      infoBox.querySelector('#cenik-beauty-selector').style.display = selectedBranch === 'kacerov' ? '' : 'none';
+    }
+    // Eventy pro výběr pobočky
+    infoBox.querySelector('#cenik-kacerov').onclick = function() {
+      selectedBranch = 'kacerov';
+      infoBox.querySelectorAll('.branch-kacerov, .branch-modrany, .branch-strasnice').forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+      updatePrices();
+      updateSelectedBranch();
+      updateBeautyVisibility();
+    };
+    infoBox.querySelector('#cenik-modrany').onclick = function() {
+      selectedBranch = 'modrany';
+      infoBox.querySelectorAll('.branch-kacerov, .branch-modrany, .branch-strasnice').forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+      updatePrices();
+      updateSelectedBranch();
+      updateBeautyVisibility();
+    };
+    infoBox.querySelector('#cenik-strasnice').onclick = function() {
+      selectedBranch = 'strasnice';
+      infoBox.querySelectorAll('.branch-kacerov, .branch-modrany, .branch-strasnice').forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+      updatePrices();
+      updateSelectedBranch();
+      updateBeautyVisibility();
+    };
+    // Eventy pro výběr specialisty
+    infoBox.querySelector('#cenik-junior').onclick = function() {
+      selectedSpecialist = 'junior';
+      infoBox.querySelectorAll('#cenik-junior, #cenik-senior, #cenik-real').forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+      updatePrices();
+    };
+    infoBox.querySelector('#cenik-senior').onclick = function() {
+      selectedSpecialist = 'senior';
+      infoBox.querySelectorAll('#cenik-junior, #cenik-senior, #cenik-real').forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+      updatePrices();
+    };
+    infoBox.querySelector('#cenik-real').onclick = function() {
+      selectedSpecialist = 'real';
+      infoBox.querySelectorAll('#cenik-junior, #cenik-senior, #cenik-real').forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+      updatePrices();
+    };
+    // Eventy pro beauty
+    infoBox.querySelector('#cenik-yes').onclick = function() {
+      beautySelected = 'yes';
+      infoBox.querySelectorAll('#cenik-yes, #cenik-no').forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+      updateBeautyVisibility();
+    };
+    infoBox.querySelector('#cenik-no').onclick = function() {
+      beautySelected = 'no';
+      infoBox.querySelectorAll('#cenik-yes, #cenik-no').forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+      updateBeautyVisibility();
+    };
+    // Tooltipy
+    infoBox.querySelectorAll('.tooltip-icon').forEach(icon => {
+      icon.onmouseenter = () => icon.querySelector('.tooltip').style.display = 'block';
+      icon.onmouseleave = () => icon.querySelector('.tooltip').style.display = 'none';
+      icon.onfocus = () => icon.querySelector('.tooltip').style.display = 'block';
+      icon.onblur = () => icon.querySelector('.tooltip').style.display = 'none';
+    });
+    // Inicializace
+    infoBox.querySelector('#cenik-kacerov').classList.add('active');
+    infoBox.querySelector('#cenik-junior').classList.add('active');
+    infoBox.querySelector('#cenik-yes').classList.add('active');
+    updatePrices();
+    updateSelectedBranch();
+    updateBeautyVisibility();
 
     // Zavření ESC
     document.addEventListener('keydown', function escInfoHandler(e) {
