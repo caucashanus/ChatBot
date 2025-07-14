@@ -1,149 +1,185 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const hour = new Date().getHours();
-  let greeting = "Vítej v Real Barber!";
-  if (hour < 11) greeting = "Dobré ráno! ☀️";
-  else if (hour < 18) greeting = "Dobrý den! 👋";
-  else greeting = "Krásný večer! 🌙";
+#chatbot-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-family: Arial, sans-serif;
+  z-index: 9999;
+}
 
-  const container = document.createElement("div");
-  container.id = "chatbot-container";
+#chatbot-toggle {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  background-color: #1A1A1A;
+  color: #F1F1F1;
+  border: none;
+  border-radius: 50%;
+  padding: 15px;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
 
-  container.innerHTML = `
-    <button id="chatbot-toggle">💬</button>
-    <div id="chatbot-box">
-      <h4>${greeting}</h4>
-      <div id="chatbot-content">
-        <button class="chatbot-button" id="btn-rezervace">💈 Chci se objednat</button>
-        <button class="chatbot-button" id="btn-cenik">💵 Chci znát ceny</button>
-        <button class="chatbot-button" id="btn-uces">💡 Chci poradit účes</button>
-      </div>
-    </div>
-  `;
+/* MASKOT */
+#chatbot-maskot {
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  width: 120px;
+  z-index: 9999;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
 
-  document.body.appendChild(container);
+#chatbot-maskot.hide {
+  opacity: 0;
+  transform: translateX(100%);
+  pointer-events: none;
+}
 
-  const toggle = document.getElementById("chatbot-toggle");
-  const box = document.getElementById("chatbot-box");
-  const content = document.getElementById("chatbot-content");
-
-  toggle.addEventListener("click", () => {
-    const isVisible = box.style.display === "block";
-    box.style.display = isVisible ? "none" : "block";
-    toggle.textContent = isVisible ? "💬" : "❌";
-  });
-
-  setTimeout(() => {
-    const maskot = document.createElement("img");
-    maskot.src = "https://rb-chat-bot.netlify.app/anim.gif";
-    maskot.className = "chatbot-maskot show";
-    maskot.id = "chatbot-maskot";
-    document.body.appendChild(maskot);
-
-    maskot.onclick = () => {
-      maskot.classList.remove("show");
-      maskot.classList.add("hide");
-
-      setTimeout(() => {
-        maskot.remove();
-        toggle.style.display = "block";
-        box.style.display = "block";
-        toggle.textContent = "❌";
-      }, 500);
-    };
-  }, 3000);
-
-  content.addEventListener("click", (e) => {
-    const target = e.target;
-    if (!target.classList.contains("chatbot-button")) return;
-
-    if (target.id === "btn-rezervace") {
-      renderRezervace();
-    } else if (target.id === "btn-cenik") {
-      window.location.href = 'https://realbarber.cz/cenik/';
-    } else if (target.id === "btn-uces") {
-      renderUcesOptions();
-    } else if (target.dataset.faceShape) {
-      renderHaircutSuggestions(target.dataset.faceShape);
-    } else if (target.id === "back-to-start") {
-      resetChat();
-    } else if (target.id === "faq-button") {
-      showFAQ();
-    } else if (target.id === "show-face-shapes") {
-      renderFaceShapesOverlay();
-    }
-  });
-
-  function renderRezervace() {
-    content.innerHTML = `
-      <p>S čím ti můžeme pomoci?</p>
-      <button class="chatbot-button" onclick="window.location.href='tel:+420608332881'">📞 Zavolat a objednat se</button>
-      <button class="chatbot-button" onclick="window.location.href='https://realbarber.cz/rezervace/'">🌐 Objednat se online</button>
-      <button class="chatbot-button" id="faq-button">💬 Potřebuju poradit</button>
-      <button class="chatbot-button" id="back-to-start">↩️ Zpět</button>
-    `;
+/* Tohle bude fungovat jen na mobilnĂ­ch zaĹĂ­zenĂ­ch (do 600px) */
+@media (max-width: 600px) {
+  #chatbot-maskot {
+    bottom: 120px; /* posuĹ ho vĂ˝ĹĄ pokud pĹekrĂ˝vĂĄ tlaÄĂ­tka */
+    width: 90px;    /* zmenĹĄi ho pro mobil */
+    right: 15px;
   }
 
-  function renderUcesOptions() {
-    content.innerHTML = `
-      <p>Jak ti mám poradit účes?</p>
-      <button class="chatbot-button" onclick="window.location.href='https://realbarber.cz/inspirace/'">📸 Chci si prohlédnout katalog všech účesů</button>
-      <button class="chatbot-button" id="show-face-shapes">🧠 Vybrat mi účes dle mého tvaru obličeje</button>
-      <button class="chatbot-button" id="back-to-start">↩️ Zpět</button>
-    `;
+  #chatbot-toggle {
+    bottom: 90px;
+  }
+}
+
+
+#chatbot-box {
+  display: none;
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  width: 300px;
+  background-color: #0F0F0F;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 15px;
+  color: #F1F1F1;
+}
+
+#chatbot-box h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.chatbot-button {
+  display: block;
+  margin: 8px 0;
+  padding: 10px;
+  background-color: #1A1A1A;
+  color: #F1F1F1;
+  border: 1px solid #444;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: background 0.3s;
+}
+
+.chatbot-button:hover {
+  background-color: #333;
+}
+
+.faq-item {
+  margin-bottom: 10px;
+}
+
+.faq-question {
+  background-color: #1A1A1A;
+  color: #F1F1F1;
+  border: 1px solid #444;
+  padding: 10px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.faq-answer {
+  display: none;
+  background-color: #0F0F0F;
+  color: #F1F1F1;
+  padding: 10px;
+  border-left: 3px solid #555;
+  margin-top: 5px;
+  border-radius: 5px;
+}
+
+.faq-answer a {
+  color: #F1F1F1;
+  text-decoration: underline;
+}
+
+.faq-answer ul {
+  list-style-type: none;
+  margin-top: 10px;
+  padding-left: 0;
+}
+
+.faq-answer li {
+  margin-bottom: 6px;
+}
+
+.chatbot-maskot.show {
+  opacity: 1;
+  transform: translateX(0);
+  
+}
+/* CSS pro gify na tvary obliceje */
+.face-gif {
+  max-width: 120px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+/* SpecifickĂŠ styly pro kaĹždĂ˝ typ */
+
+.gif-oval,
+.gif-kulaty,
+.gif-hranaty {
+  width: 120px;
+  height: auto;
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 9999;
+  display: block;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+
+/* ResponzivnĂ­ zmÄna uspoĹĂĄdĂĄnĂ­ na mobilu */
+@media (max-width: 600px) {
+  #face-overlay > div {
+    flex-direction: column;
+    align-items: center;
   }
 
-  function resetChat() {
-    content.innerHTML = `
-      <button class="chatbot-button" id="btn-rezervace">💈 Chci se objednat</button>
-      <button class="chatbot-button" id="btn-cenik">💵 Chci znát ceny</button>
-      <button class="chatbot-button" id="btn-uces">💡 Chci poradit účes</button>
-      <button class="chatbot-button" id="faq-button">💬 Potřebuju poradit</button>
-    `;
+  .gif-oval,
+  .gif-kulaty,
+  .gif-hranaty {
+    width: 80px;
+    margin-bottom: 10px;
   }
+}
 
-  function showFAQ() {
-    content.innerHTML = `
-      <p>Často kladené otázky:</p>
-      <div class="faq-item">
-        <button class="faq-question">❓ Jak se mohu objednat?</button>
-        <div class="faq-answer">
-          Můžeš nám <a href="tel:+420608332881">zavolat</a> nebo použít online rezervaci na stránce
-          <a href="https://realbarber.cz/rezervace/">Rezervace</a>.
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question">❓ Jak dlouho trvá střihání?</button>
-        <div class="faq-answer">
-          <p><strong>Obvyklá délka jednotlivých služeb:</strong></p>
-          <ul>
-            <li><a href="https://realbarber.cz/sluzby/barber-klasicke-moderni-strihani-vlasu/">💇‍♂️ Stříhání vlasů</a>: 30–50 minut</li>
-            <li><a href="https://realbarber.cz/sluzby/uprava-vousu/">🧔 Úprava vousů</a>: 25–35 minut</li>
-            <li><a href="https://realbarber.cz/sluzby/kompletni-pece-real-barber/">💈 Stříhání + vousy</a>: 50–80 minut</li>
-            <li><a href="https://realbarber.cz/sluzby/detske-strihani-do-12-let/">👦 Dětské stříhání</a>: 20–35 minut</li>
-          </ul>
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question">❓ Můžu platit kartou?</button>
-        <div class="faq-answer">Ano, na všech našich pobočkách máme platební terminály.</div>
-      </div>
-      <button class="chatbot-button" id="back-to-start">↩️ Zpět</button>
-    `;
 
-    const questions = content.querySelectorAll('.faq-question');
-    const answers = content.querySelectorAll('.faq-answer');
 
-    answers.forEach((a) => (a.style.display = 'none'));
-
-    questions.forEach((btn) => {
-      btn.addEventListener('click', function () {
-        const thisAnswer = this.nextElementSibling;
-        answers.forEach((a) => {
-          if (a !== thisAnswer) a.style.display = 'none';
-        });
-        thisAnswer.style.display = thisAnswer.style.display === 'block' ? 'none' : 'block';
-      });
-    });
+/* NepouĹžitĂŠ/rezervovanĂŠ, mĹŻĹžeĹĄ pĹĂ­padnÄ vyuĹžĂ­t pozdÄji */
+@keyframes slideIn {
+  to {
+    right: 20px;
   }
-});
-
+  
+}
