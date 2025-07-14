@@ -262,3 +262,156 @@
     font-size: 17px;
   }
 }
+
+/* Ceníkový info bar (modal) */
+.cenik-info-box {
+  max-width: 700px;
+  width: 100%;
+  background: #181818;
+  color: #fff;
+  border-radius: 12px;
+  padding: 30px 20px 20px 20px;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.5);
+  overflow-y: auto;
+  max-height: 90vh;
+}
+.selector-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.selector {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  position: relative;
+}
+.selector label {
+  font-size: 20px;
+  margin-right: 15px;
+  text-align: center;
+  width: 100%;
+}
+.selector button {
+  font-size: 18px;
+  padding: 6px 12px;
+  border-radius: 12px;
+  background-color: #2A2A2A;
+  color: white;
+  margin: 5px;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.selector button.active {
+  background-color: #3F3F3F;
+}
+.branch-kacerov.active { border-color: #F8E020; }
+.branch-modrany.active { border-color: #D8232A; }
+.branch-strasnice.active { border-color: #0090F9; }
+.selected-branch, #cenik-selected-branch {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 20px;
+  color: #B0B0B0;
+}
+.beauty-warning, #cenik-beauty-warning {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 20px;
+  color: #B0B0B0;
+  display: none;
+}
+.pricing-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: white;
+  margin-bottom: 20px;
+}
+.pricing-table th, .pricing-table td {
+  padding: 15px;
+}
+.pricing-table th {
+  font-size: 20px;
+  text-align: left;
+  color: #B0B0B0;
+}
+.pricing-table td {
+  text-align: left;
+}
+.pricing-table .price-header {
+  text-align: right;
+}
+.pricing-table .price {
+  text-align: right;
+  color: #B0B0B0;
+}
+.pricing-table tbody tr:hover {
+  background-color: #202020;
+  border-radius: 15px;
+}
+.pricing-table thead tr:hover {
+  background-color: transparent;
+}
+.tooltip-icon {
+  margin-left: 5px;
+  font-size: 14px;
+  color: #F46C20;
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+}
+.tooltip {
+  display: none;
+  background-color: #2C2421;
+  color: #F46C20;
+  border-radius: 8px;
+  font-size: 12px;
+  padding: 10px 15px;
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: max-content;
+  max-width: 300px;
+  text-align: center;
+  white-space: normal;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.tooltip-icon:hover .tooltip,
+.tooltip-icon:focus .tooltip {
+  display: block;
+  opacity: 1;
+  pointer-events: auto;
+}
+@media (max-width: 768px) {
+  .cenik-info-box {
+    max-width: 98vw;
+    padding: 18px 2vw 18px 2vw;
+    font-size: 15px;
+  }
+  .selector label {
+    font-size: 16px;
+    margin-right: 10px;
+  }
+  .selector button {
+    font-size: 16px;
+    padding: 6px 10px;
+    margin-right: 5px;
+  }
+  .pricing-table th, .pricing-table td {
+    padding: 10px;
+  }
+  .pricing-table th {
+    font-size: 16px;
+  }
+  .pricing-table .price-header {
+    text-align: right;
+  }
+}
