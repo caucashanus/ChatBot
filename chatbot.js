@@ -103,48 +103,18 @@ document.addEventListener("DOMContentLoaded", function () {
     overlay.style.backgroundColor = "rgba(0,0,0,0.8)";
     overlay.style.zIndex = "10000";
     overlay.style.display = "flex";
-    overlay.style.flexDirection = "column";
     overlay.style.alignItems = "center";
     overlay.style.justifyContent = "center";
     overlay.style.padding = "20px";
     overlay.style.boxSizing = "border-box";
 
-    const controls = document.createElement("div");
-    controls.style.position = "absolute";
-    controls.style.top = "10px";
-    controls.style.right = "10px";
-    controls.style.display = "flex";
-    controls.style.gap = "10px";
-
-    const closeBtn = document.createElement("button");
-    closeBtn.textContent = "×";
-    closeBtn.style.fontSize = "24px";
-    closeBtn.style.background = "transparent";
-    closeBtn.style.border = "none";
-    closeBtn.style.color = "white";
-    closeBtn.style.cursor = "pointer";
-    closeBtn.onclick = () => overlay.remove();
-
-    const infoBtn = document.createElement("button");
-    infoBtn.textContent = "ℹ️ Info";
-    infoBtn.style.fontSize = "16px";
-    infoBtn.style.background = "#1A1A1A";
-    infoBtn.style.color = "#fff";
-    infoBtn.style.border = "1px solid #fff";
-    infoBtn.style.borderRadius = "5px";
-    infoBtn.style.cursor = "pointer";
-    infoBtn.onclick = () => showInfoOverlay();
-
-    controls.appendChild(infoBtn);
-    controls.appendChild(closeBtn);
-    overlay.appendChild(controls);
-
     const wrapper = document.createElement("div");
     wrapper.style.display = "flex";
+    wrapper.style.flexDirection = "row";
     wrapper.style.flexWrap = "wrap";
     wrapper.style.justifyContent = "center";
     wrapper.style.gap = "20px";
-    wrapper.style.maxWidth = "100%"
+    wrapper.style.maxWidth = "100%";
 
     const faceShapes = [
       { src: "https://rb-chat-bot.netlify.app/oval.gif", class: "gif-oval", label: "Oválný" },
@@ -197,53 +167,6 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
   }
-  function showInfoOverlay() {
-      const infoOverlay = document.createElement("div");
-      infoOverlay.style.position = "fixed";
-      infoOverlay.style.top = "0";
-      infoOverlay.style.left = "0";
-      infoOverlay.style.width = "100vw";
-      infoOverlay.style.height = "100vh";
-      infoOverlay.style.backgroundColor = "rgba(0,0,0,0.95)";
-      infoOverlay.style.zIndex = "10001";
-      infoOverlay.style.display = "flex";
-      infoOverlay.style.flexDirection = "column";
-      infoOverlay.style.alignItems = "center";
-      infoOverlay.style.justifyContent = "center";
-      infoOverlay.style.padding = "20px";
-      infoOverlay.style.boxSizing = "border-box";
-      infoOverlay.style.color = "#fff";
-
-      const close = document.createElement("button");
-      close.textContent = "Zavřít";
-      close.style.marginTop = "20px";
-      close.style.padding = "10px 20px";
-      close.style.fontSize = "16px";
-      close.style.cursor = "pointer";
-      close.style.background = "#1A1A1A";
-      close.style.color = "#fff";
-      close.style.border = "1px solid #fff";
-      close.style.borderRadius = "5px";
-      close.onclick = () => infoOverlay.remove();
-
-      const text = document.createElement("div");
-      text.style.maxWidth = "600px";
-      text.style.textAlign = "center";
-      text.style.fontSize = "16px";
-      text.style.lineHeight = "1.6";
-      text.innerHTML = `
-        <p>Na základě tvaru Vašeho obličeje Vám nabízíme inspiraci v podobě vhodných účesů.</p>
-        <p>To však neznamená, že by Vám neslušely i jiné styly – každý člověk je jedinečný. Součástí každé naší služby je osobní konzultace, během které s Vámi náš stylista probere Vaše představy a zároveň nabídne svůj odborný pohled.</p>
-        <p>Naším cílem je splnit Vaše přání, nebo Vám naopak pomoci najít ideální střih přímo na míru.</p>
-        <a href="https://realbarber.cz/inspirace/" target="_blank" style="color: #fff; text-decoration: underline; font-weight: bold; display: inline-block; margin-top: 10px;">Katalog</a>
-      `;
-
-      infoOverlay.appendChild(text);
-      infoOverlay.appendChild(close);
-      document.body.appendChild(infoOverlay);
-    }
-  }
-});
 
   function renderHaircutSuggestions(type, wrapper) {
     const haircutSets = {
@@ -357,6 +280,82 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         thisAnswer.style.display = thisAnswer.style.display === 'block' ? 'none' : 'block';
       });
+    });
+  }
+
+  // Funkce pro zobrazení info modalu
+  function showFaceInfoModal(faceType) {
+    const infoOverlay = document.createElement('div');
+    infoOverlay.className = 'face-info-overlay';
+    infoOverlay.style.position = 'fixed';
+    infoOverlay.style.top = '0';
+    infoOverlay.style.left = '0';
+    infoOverlay.style.width = '100vw';
+    infoOverlay.style.height = '100vh';
+    infoOverlay.style.backgroundColor = 'rgba(0,0,0,0.92)';
+    infoOverlay.style.zIndex = '11000';
+    infoOverlay.style.display = 'flex';
+    infoOverlay.style.alignItems = 'center';
+    infoOverlay.style.justifyContent = 'center';
+    infoOverlay.style.padding = '20px';
+    infoOverlay.style.boxSizing = 'border-box';
+
+    const infoBox = document.createElement('div');
+    infoBox.className = 'face-info-box';
+    infoBox.style.background = '#181818';
+    infoBox.style.color = '#fff';
+    infoBox.style.borderRadius = '12px';
+    infoBox.style.maxWidth = '400px';
+    infoBox.style.width = '100%';
+    infoBox.style.padding = '30px 20px 20px 20px';
+    infoBox.style.position = 'relative';
+    infoBox.style.boxShadow = '0 4px 32px rgba(0,0,0,0.5)';
+    infoBox.style.textAlign = 'left';
+
+    // Zavírací tlačítko pro info box
+    const infoClose = document.createElement('button');
+    infoClose.innerHTML = '×';
+    infoClose.title = 'Zavřít';
+    infoClose.className = 'face-info-close-btn';
+    infoClose.style.position = 'absolute';
+    infoClose.style.top = '10px';
+    infoClose.style.right = '15px';
+    infoClose.onclick = () => infoOverlay.remove();
+    infoBox.appendChild(infoClose);
+
+    // Text info boxu
+    const infoText = document.createElement('div');
+    infoText.innerHTML = `Na základě tvaru Vašeho obličeje Vám nabízíme inspiraci v podobě vhodných účesů.<br><br>
+    To však neznamená, že by Vám neslušely i jiné styly – každý člověk je jedinečný. Součástí každé naší služby je osobní konzultace, během které s Vámi náš stylista probere Vaše představy a zároveň nabídne svůj odborný pohled.<br><br>
+    Naším cílem je splnit Vaše přání, nebo Vám naopak pomoci najít ideální střih přímo na míru.<br><br>
+    Doporučujeme Vám také navštívit náš katalog účesů pro další inspiraci.`;
+    infoBox.appendChild(infoText);
+
+    // Katalog tlačítko
+    const katalogBtn = document.createElement('button');
+    katalogBtn.innerText = 'Katalog';
+    katalogBtn.className = 'face-info-katalog-btn';
+    katalogBtn.style.marginTop = '20px';
+    katalogBtn.style.width = '100%';
+    katalogBtn.style.padding = '12px';
+    katalogBtn.style.background = '#1A1A1A';
+    katalogBtn.style.color = '#fff';
+    katalogBtn.style.border = 'none';
+    katalogBtn.style.borderRadius = '6px';
+    katalogBtn.style.fontSize = '16px';
+    katalogBtn.style.cursor = 'pointer';
+    katalogBtn.onclick = () => window.open('https://realbarber.cz/inspirace/', '_blank');
+    infoBox.appendChild(katalogBtn);
+
+    infoOverlay.appendChild(infoBox);
+    document.body.appendChild(infoOverlay);
+
+    // Zavření ESC
+    document.addEventListener('keydown', function escInfoHandler(e) {
+      if (e.key === 'Escape') {
+        infoOverlay.remove();
+        document.removeEventListener('keydown', escInfoHandler);
+      }
     });
   }
 });
