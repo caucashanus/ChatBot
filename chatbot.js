@@ -459,19 +459,8 @@ document.addEventListener("DOMContentLoaded", function () {
     infoBox.style.overflowY = 'auto';
     infoBox.style.maxHeight = '90vh';
 
-    // Zavírací tlačítko pro info box
-    const infoClose = document.createElement('button');
-    infoClose.innerHTML = '×';
-    infoClose.title = 'Zavřít';
-    infoClose.className = 'face-info-close-btn';
-    infoClose.style.position = 'absolute';
-    infoClose.style.top = '10px';
-    infoClose.style.right = '15px';
-    infoClose.onclick = () => infoOverlay.remove();
-    infoBox.appendChild(infoClose);
-
-    // HTML ceníku (zjednodušeně, pro modal)
-    infoBox.innerHTML += `
+    infoBox.innerHTML = `
+      <button class="face-info-close-btn" id="cenik-close-btn" title="Zavřít" style="position:absolute;top:10px;right:15px;">×</button>
       <div class="selector-container">
         <div class="selector">
           <label>Vyberte pobočku:</label>
@@ -637,6 +626,8 @@ document.addEventListener("DOMContentLoaded", function () {
       icon.onfocus = () => icon.querySelector('.tooltip').style.display = 'block';
       icon.onblur = () => icon.querySelector('.tooltip').style.display = 'none';
     });
+    // Funkčnost zavíracího tlačítka X
+    infoBox.querySelector('#cenik-close-btn').onclick = () => infoOverlay.remove();
     // Inicializace
     infoBox.querySelector('#cenik-kacerov').classList.add('active');
     infoBox.querySelector('#cenik-junior').classList.add('active');
