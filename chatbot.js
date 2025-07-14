@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Přidám vstupní gif ihned po načtení stránky
   const vstupniGif = document.createElement("img");
-  vstupniGif.src = "vstupnigif.gif";
+  vstupniGif.src = "https://rb-chat-bot.netlify.app/vstupnigif.gif";
   vstupniGif.className = "chatbot-maskot show";
   vstupniGif.id = "vstupni-gif";
   document.body.appendChild(vstupniGif);
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
       vstupniGif.remove();
       // Zobrazím anim.gif (původní maskot)
       const maskot = document.createElement("img");
-      maskot.src = "anim.gif";
+      maskot.src = "https://rb-chat-bot.netlify.app/anim.gif";
       maskot.className = "chatbot-maskot show";
       maskot.id = "chatbot-maskot";
       document.body.appendChild(maskot);
