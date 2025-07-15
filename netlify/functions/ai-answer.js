@@ -1,10 +1,9 @@
 // netlify/functions/ai-answer.js
 
 exports.handler = async function(event) {
+  // Logování pro kontrolu, jestli je klíč načten
   console.log('OPENAI_API_KEY:', process.env.OPENAI_API_KEY ? 'OK' : 'NENÍ NASTAVEN');
-  // ... zbytek kódu ...
 
-exports.handler = async function(event) {
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
