@@ -691,7 +691,7 @@ document.addEventListener("DOMContentLoaded", function () {
   userInputWrapper.appendChild(sendBtn);
   content.appendChild(userInputWrapper);
 
-  // Funkce pro zpracování dotazu
+  // Funkce pro zpracování dotazu přes OpenAI
   async function processUserQuery() {
     const dotaz = userInput.value.trim();
     if (!dotaz) return;
@@ -715,35 +715,20 @@ document.addEventListener("DOMContentLoaded", function () {
     content.appendChild(odpoved);
     content.scrollTop = content.scrollHeight;
 
-    // Stáhni všechny stránky z WordPressu
-    let pages = [];
+    // Pošli dotaz na serverless funkci s OpenAI
     try {
-      const pagesRes = await fetch('https://realbarber.cz/wp-json/wp/v2/pages?per_page=100');
-      pages = await pagesRes.json();
+      const res = await fetch('/.netlify/functions/ai-answer', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          dotaz: dotaz,
+          context: '' // Pokud nemáš speciální kontext, nech prázdné nebo doplň podle potřeby
+        })
+      });
+      const data = await res.json();
+      odpoved.textContent = data.answer || 'Chyba při získávání odpovědi.';
     } catch (e) {
-      odpoved.textContent = 'Chyba při načítání dat.';
-      return;
-    }
-    // Filtrovat pouze stránky pod /sluzby/, /tym/ a /blog/
-    const relevantPages = pages.filter(page =>
-      page.link.startsWith('https://www.realbarber.cz/sluzby/') ||
-      page.link.startsWith('https://www.realbarber.cz/tym/') ||
-      page.link.startsWith('https://www.realbarber.cz/blog/')
-    );
-    // Najdi relevantní stránku (titulek nebo obsah)
-    const nalezeny = relevantPages.find(page =>
-      (page.title && page.title.rendered && page.title.rendered.toLowerCase().includes(dotaz.toLowerCase())) ||
-      (page.content && page.content.rendered && page.content.rendered.toLowerCase().includes(dotaz.toLowerCase()))
-    );
-    if (nalezeny) {
-      // Vytvoř shrnutí (prvních 200 znaků bez HTML)
-      const tempDiv = document.createElement('div');
-      tempDiv.innerHTML = nalezeny.content.rendered || '';
-      const plainText = tempDiv.textContent || tempDiv.innerText || '';
-      const shrnuti = plainText.length > 200 ? plainText.slice(0, 200) + '…' : plainText;
-      odpoved.innerHTML = `<strong>${nalezeny.title.rendered}</strong><br>${shrnuti}<br><a href="${nalezeny.link}" target="_blank" style="color:#F1F1F1;text-decoration:underline;">Celý článek</a>`;
-    } else {
-      odpoved.textContent = 'Na tuto otázku nemám odpověď.';
+      odpoved.textContent = 'Chyba při komunikaci se serverem.';
     }
     content.scrollTop = content.scrollHeight;
   }
