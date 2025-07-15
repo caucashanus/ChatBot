@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Přidám vstupní gif ihned po načtení stránky
   const vstupniGif = document.createElement("img");
-  vstupniGif.src = "https://rb-chat-bot.netlify.app/vstupnigif.gif";
+  vstupniGif.src = "https://rb-chat-bot.netlify.app/web_animace_vyskok.gif";
   vstupniGif.className = "chatbot-maskot show";
   vstupniGif.id = "vstupni-gif";
   document.body.appendChild(vstupniGif);
