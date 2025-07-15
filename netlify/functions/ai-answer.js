@@ -1,0 +1,66 @@
+const fetch = require('node-fetch');
+
+exports.handler = async function(event) {
+  if (event.httpMethod !== 'POST') {
+    return {
+      statusCode: 405,
+      body: 'Method Not Allowed'
+    };
+  }
+
+  const { dotaz, context } = JSON.parse(event.body || '{}');
+  const apiKey = process.env.OPENAI_API_KEY;
+
+  if (!apiKey) {
+    return {
+      statusCode: 500,
+      body: 'Missing OpenAI API key'
+    };
+  }
+
+  // Sestavíme prompt pro OpenAI
+  const messages = [
+    {
+      role: 'system',
+      content: 'Odpovídej pouze na základě poskytnutého kontextu. Pokud odpověď není v kontextu, napiš: Na tuto otázku nemám odpověď.'
+    },
+    {
+      role: 'user',
+      content: `Dotaz: ${dotaz}\n\nKontext:\n${context || 'Žádný kontext'}`
+    }
+  ];
+
+  try {
+    const openaiRes = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        model: 'gpt-3.5-turbo',
+        messages,
+        max_tokens: 400
+      })
+    });
+
+    const data = await openaiRes.json();
+
+    if (!data.choices || !data.choices[0] || !data.choices[0].message) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ answer: 'Chyba při komunikaci s OpenAI.' })
+      };
+    }
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ answer: data.choices[0].message.content })
+    };
+  } catch (e) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ answer: 'Chyba při komunikaci s OpenAI.' })
+    };
+  }
+};
