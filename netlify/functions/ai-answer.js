@@ -25,7 +25,7 @@ exports.handler = async function(event) {
   const messages = [
     {
       role: 'system',
-      content: 'Odpovídej pouze na základě poskytnutého kontextu. Pokud odpověď není v kontextu, napiš: Na tuto otázku nemám odpověď.'
+      content: 'Odpovídej na dotazy uživatele. Pokud máš kontext, použij ho, jinak odpověz podle svých znalostí.'
     },
     {
       role: 'user',
