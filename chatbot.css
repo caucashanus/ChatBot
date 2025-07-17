@@ -425,8 +425,8 @@
   width: 90px;
   height: auto;
   z-index: 10000;
-  border-radius: 12px;
-  box-shadow: 0 0 16px rgba(0,0,0,0.4);
+  /* border-radius: 12px; */ /* odstraněno zaoblení */
+  /* box-shadow: 0 0 16px rgba(0,0,0,0.4); */ /* odstraněn rámeček/stín */
   /* background: #181818; */ /* odstraněno kvůli průhlednosti GIFu */
   padding: 4px;
 }
@@ -437,3 +437,4 @@
     right: 10px;
   }
 }
+
