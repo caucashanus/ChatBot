@@ -422,7 +422,7 @@
   right: 20px;
   top: 50%;
   transform: translateY(-50%);
-  width: 160px;
+  width: 100px;
   height: auto;
   z-index: 10000;
   /* border-radius: 12px; */ /* odstraněno zaoblení */
