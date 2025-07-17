@@ -422,7 +422,7 @@
   right: 20px;
   top: 50%;
   transform: translateY(-50%);
-  width: 90px;
+  width: 160px;
   height: auto;
   z-index: 10000;
   /* border-radius: 12px; */ /* odstraněno zaoblení */
@@ -437,4 +437,3 @@
     right: 10px;
   }
 }
-
