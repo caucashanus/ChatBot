@@ -44,7 +44,7 @@
 @media (max-width: 600px) {
   #chatbot-maskot {
     bottom: 120px; /* posuň ho výš pokud překrývá tlačítka */
-    width: 90px;    /* zmenši ho pro mobil */
+    width: 150px;    /* zmenši ho pro mobil */
     right: 15px;
   }
 
