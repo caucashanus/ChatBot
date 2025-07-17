@@ -44,7 +44,7 @@
 @media (max-width: 600px) {
   #chatbot-maskot {
     bottom: 120px; /* posuň ho výš pokud překrývá tlačítka */
-    width: 150px;    /* zmenši ho pro mobil */
+    width: 90px;    /* zmenši ho pro mobil */
     right: 15px;
   }
 
@@ -419,10 +419,10 @@
 /* Vstupní gif - speciální pozice a velikost */
 #vstupni-gif {
   position: fixed;
-  right: 20px;
+  right: 0;
   top: 50%;
   transform: translateY(-50%);
-  width: 200px;
+  width: 160px;
   height: auto;
   z-index: 10000;
   /* border-radius: 12px; */ /* odstraněno zaoblení */
